@@ -101,6 +101,18 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* Individual button - white theme */
+.selection-btn.individual-btn {
+    background: white;
+    color: #000000;
+    border: 2px solid #2c5f7e;
+}
+
+.selection-btn.individual-btn:hover {
+    background: #f8f9fa;
+    border-color: #1e4a63;
+}
+
 .btn-icon {
     font-size: 3em;
     margin-bottom: 15px;
