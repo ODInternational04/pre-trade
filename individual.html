@@ -194,19 +194,19 @@
                     
                     <div class="form-group">
                         <label for="idDocument">Copy of ID / Passport: *</label>
-                        <input type="file" id="idDocument" name="idDocument" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <input type="file" id="idDocument" name="idDocument" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Upload a clear copy of your identification document</small>
                     </div>
 
                     <div class="form-group">
                         <label for="proofResidence">Proof of Residence (within 3 months): *</label>
-                        <input type="file" id="proofResidence" name="proofResidence" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <input type="file" id="proofResidence" name="proofResidence" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Utility bill, bank statement, or rental agreement</small>
                     </div>
 
                     <div class="form-group">
                         <label for="bankProof">Proof of Bank Account Details: *</label>
-                        <input type="file" id="bankProof" name="bankProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <input type="file" id="bankProof" name="bankProof" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Bank statement or confirmation letter</small>
                     </div>
                 </div>
@@ -559,8 +559,9 @@
             
             if (missingFiles.length > 0) {
                 errorMsg.style.display = 'block';
-                errorMsg.innerHTML = `<strong>Incomplete Application</strong><br><br>Please upload the following required documents:<br>• ${missingFiles.join('<br>• ')}`;
+                errorMsg.innerHTML = `<strong>⚠ Incomplete Application</strong><br><br>Please upload the following required documents:<br>• ${missingFiles.join('<br>• ')}`;
                 errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                submitBtn.disabled = false;
                 return;
             }
             
