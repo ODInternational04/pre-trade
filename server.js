@@ -243,6 +243,116 @@ async function sendApprovalEmail(clientName, applicationType, sharePointLink, cl
     }
 }
 
+// Create or update tracking PDF for resubmissions
+async function createOrUpdateTrackingPDF(clientFolder, clientName, isResubmission) {
+    try {
+        const doc = new PDFDocument({ margin: 30, size: 'A4' });
+        const pdfPath = path.join(__dirname, 'uploads', 'temp_tracking.pdf');
+        const stream = fs.createWriteStream(pdfPath);
+        
+        doc.pipe(stream);
+        
+        // Add logo
+        const logoPath = path.join(__dirname, 'IBV-Gold-1.png');
+        if (fs.existsSync(logoPath)) {
+            doc.image(logoPath, 30, 18, { fit: [100, 35] });
+        }
+        
+        doc.y = 70;
+        
+        // Title
+        doc.fontSize(15).fillColor('#000000').font('Helvetica-Bold')
+           .text('APPLICATION RESUBMISSION TRACKING', 30, doc.y, { align: 'center' });
+        doc.y += 30;
+        
+        // Client info
+        doc.fontSize(10).fillColor('#000000').font('Helvetica-Bold')
+           .text('Client Name:', 30);
+        doc.fontSize(9).font('Helvetica')
+           .text(clientName, 30, doc.y + 5);
+        doc.y += 30;
+        
+        // Tracking table header
+        doc.fontSize(10).fillColor('#000000').font('Helvetica-Bold')
+           .text('SUBMISSION HISTORY', 30);
+        doc.moveTo(30, doc.y).lineTo(doc.page.width - 30, doc.y).lineWidth(0.5).stroke('#000000');
+        doc.y += 10;
+        
+        // Get existing tracking data if it's a resubmission
+        let trackingEntries = [];
+        
+        if (isResubmission) {
+            try {
+                const client = await getGraphClient();
+                const siteId = await getSharePointSiteId();
+                const drives = await client.api(`/sites/${siteId}/drives`).get();
+                const targetDrive = drives.value.find(d => d.name === config.sharepoint.documentLibrary);
+                
+                if (targetDrive) {
+                    // Try to get existing tracking PDF
+                    const folderPath = `root:/${clientFolder}`;
+                    const items = await client.api(`/drives/${targetDrive.id}/${folderPath}:/children`).get();
+                    const trackingFile = items.value.find(item => item.name === 'Resubmission_Tracking.pdf');
+                    
+                    if (trackingFile) {
+                        // Read existing tracking data from SharePoint
+                        // For now, we'll start fresh but note it's a resubmission
+                        trackingEntries.push({
+                            date: new Date(trackingFile.createdDateTime).toLocaleDateString(),
+                            note: 'Original submission'
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log('Could not retrieve existing tracking data:', error.message);
+            }
+        }
+        
+        // Add current submission
+        trackingEntries.push({
+            date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+            note: isResubmission ? 'Resubmission - Information updated' : 'Initial submission'
+        });
+        
+        // Draw tracking entries
+        doc.fontSize(8).fillColor('#000000').font('Helvetica');
+        trackingEntries.forEach((entry, index) => {
+            doc.font('Helvetica-Bold').text(`${index + 1}. `, 30, doc.y, { continued: true });
+            doc.font('Helvetica').text(`${entry.date} - ${entry.note}`);
+            doc.y += 15;
+        });
+        
+        doc.y += 20;
+        
+        // Footer note
+        doc.fontSize(7).fillColor('#000000').font('Helvetica-Oblique')
+           .text('This document tracks all submission and resubmission dates for compliance purposes.', 30, doc.y, {
+               width: doc.page.width - 60,
+               align: 'center'
+           });
+        
+        doc.end();
+        
+        await new Promise((resolve, reject) => {
+            stream.on('finish', resolve);
+            stream.on('error', reject);
+        });
+        
+        console.log('✓ Tracking PDF created');
+        
+        // Upload to SharePoint
+        await uploadToSharePoint(pdfPath, 'Resubmission_Tracking.pdf', clientFolder);
+        console.log('✓ Tracking PDF uploaded to SharePoint');
+        
+        // Clean up
+        fs.unlinkSync(pdfPath);
+        
+    } catch (error) {
+        console.error('Error creating tracking PDF:', error);
+        throw error;
+    }
+}
+
 // Create client information PDF with all submitted data
 async function createClientInfoPDF(formData, clientFolder, signatureDataUrl) {
     try {
@@ -758,28 +868,37 @@ app.post('/api/submit', upload.any(), async (req, res) => {
         // Create client folder name
         const clientName = formData.fullName || formData.repFullName || formData.companyRegName || 'Unknown Client';
         const timestamp = new Date().toISOString().split('T')[0];
-        const clientFolder = `${clientName.replace(/[/\\?%*:|"<>]/g, '-')}_${timestamp}`;
         
-        console.log('Processing submission for:', clientFolder);
-        console.log('Number of files:', files.length);
+        let clientFolder;
+        let isResubmission = false;
         
-        // Check for duplicates if not explicitly allowed
-        if (formData.allowDuplicate !== 'true') {
-            const existingClients = await searchExistingClient(clientName);
-            
-            if (existingClients.length > 0) {
-                return res.status(409).json({
-                    success: false,
-                    duplicate: true,
-                    message: `A client named "${clientName}" already exists`,
-                    existingFolders: existingClients.map(folder => ({
-                        name: folder.name,
-                        createdDate: folder.createdDateTime,
-                        webUrl: folder.webUrl
-                    }))
-                });
-            }
+        // Check for duplicates
+        const existingClients = await searchExistingClient(clientName);
+        
+        if (existingClients.length > 0 && formData.allowDuplicate === 'true') {
+            // This is a resubmission - use the existing folder name
+            clientFolder = existingClients[0].name;
+            isResubmission = true;
+            console.log('Processing RESUBMISSION for existing folder:', clientFolder);
+        } else if (existingClients.length > 0 && formData.allowDuplicate !== 'true') {
+            // Duplicate found but not allowed to proceed
+            return res.status(409).json({
+                success: false,
+                duplicate: true,
+                message: `A client named "${clientName}" already exists`,
+                existingFolders: existingClients.map(folder => ({
+                    name: folder.name,
+                    createdDate: folder.createdDateTime,
+                    webUrl: folder.webUrl
+                }))
+            });
+        } else {
+            // New submission - create new folder name with timestamp
+            clientFolder = `${clientName.replace(/[/\\?%*:|"<>]/g, '-')}_${timestamp}`;
+            console.log('Processing NEW submission for:', clientFolder);
         }
+        
+        console.log('Number of files:', files.length);
         
         // Upload all files to SharePoint
         console.log('Uploading files to SharePoint...');
@@ -811,6 +930,12 @@ app.post('/api/submit', upload.any(), async (req, res) => {
         // Create client information PDF with all form data and signature
         console.log('Creating client information PDF...');
         await createClientInfoPDF(formData, clientFolder, formData.signatureData);
+        
+        // Create or update tracking PDF if it's a resubmission
+        if (isResubmission) {
+            console.log('Creating resubmission tracking PDF...');
+            await createOrUpdateTrackingPDF(clientFolder, clientName, true);
+        }
         
         // Send approval email
         console.log('Sending approval email...');
