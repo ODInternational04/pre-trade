@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBV GOLD - Individual Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="IBV-Gold-1.png" alt="IBV Gold" style="max-width: 200px; height: auto;">
+            </div>
+            <div class="header-title">
+                <h2>PRE-TRADE APPLICATION FORM</h2>
+                <p style="color: #666; margin-top: 10px;">INDIVIDUAL APPLICATION</p>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%;" id="progressBar"></div>
+        </div>
+        <div class="page-indicator" id="pageIndicator">Page 1 of 2</div>
+
+        <form id="individualForm">
+            <!-- PAGE 1 -->
+            <div class="form-page" id="page1">
+                <div class="form-section">
+                    <h3>TYPE OF APPLICANT</h3>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="individual" name="applicantType" value="individual" checked>
+                                <label for="individual">INDIVIDUAL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>DATE:</label>
+                        <input type="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>RESIDENCY OF APPLICANT</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="resident" name="residency" value="resident" required>
+                            <label for="resident">RESIDENT</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="nonResident" name="residency" value="non-resident">
+                            <label for="nonResident">NON-RESIDENT</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>APPLICANT'S DETAILS</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">FULL NAME: *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idNumber">ID NUMBER: *</label>
+                            <input type="text" id="idNumber" name="idNumber" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mobile">MOBILE: *</label>
+                            <input type="tel" id="mobile" name="mobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">EMAIL ADDRESS: *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="residentialAddress">RESIDENTIAL ADDRESS: *</label>
+                        <textarea id="residentialAddress" name="residentialAddress" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>PROFESSION DETAILS</h3>
+                    <div class="form-group">
+                        <label>EMPLOYMENT STATUS:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="fullTime" name="employmentStatus" value="full-time">
+                                <label for="fullTime">FULL TIME EMPLOYED</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="partTime" name="employmentStatus" value="part-time">
+                                <label for="partTime">PART TIME EMPLOYED</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="business" name="employmentStatus" value="business">
+                                <label for="business">BUSINESS OWNER/SELF-EMPLOYED</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="unemployed" name="employmentStatus" value="unemployed">
+                                <label for="unemployed">UNEMPLOYED/RETIRED</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profession">PROFESSION:</label>
+                        <input type="text" id="profession" name="profession">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>COMPANY DETAILS</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="companyName">COMPANY NAME:</label>
+                            <input type="text" id="companyName" name="companyName">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyPhone">COMPANY TELEPHONE NO.:</label>
+                            <input type="tel" id="companyPhone" name="companyPhone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>NATURE OF BUSINESS</h3>
+                    <div class="form-group">
+                        <label for="sourceOfFunds">SOURCE OF FUNDS:</label>
+                        <input type="text" id="sourceOfFunds" name="sourceOfFunds" placeholder="(Organised/Self - Activity/VIA Dependent Funds)">
+                    </div>
+                    <div class="form-group">
+                        <label for="sourceOfWealth">SOURCE OF WEALTH:</label>
+                        <input type="text" id="sourceOfWealth" name="sourceOfWealth" placeholder="(Activities/Natural Gas/Metals/Net Worth of Business/Capital)">
+                    </div>
+                    <div class="form-group">
+                        <label>PURPOSE OF TRANSACTION:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="investment" name="transactionPurpose" value="investment">
+                                <label for="investment">INVESTMENT/RELOCATION OF ASSETS</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="personalUse" name="transactionPurpose" value="personal">
+                                <label for="personalUse">PERSONAL USE</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="gift" name="transactionPurpose" value="gift">
+                                <label for="gift">GIFT</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="other" name="transactionPurpose" value="other">
+                                <label for="other">OTHER</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>BANKING DETAILS</h3>
+                    <div class="form-group">
+                        <label for="accountHolder">ACCOUNT HOLDER: *</label>
+                        <input type="text" id="accountHolder" name="accountHolder" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bankName">NAME OF BANK: *</label>
+                            <input type="text" id="bankName" name="bankName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountType">TYPE OF ACCOUNT: *</label>
+                            <input type="text" id="accountType" name="accountType" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accountNumber">ACCOUNT NUMBER: *</label>
+                            <input type="text" id="accountNumber" name="accountNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="branchCode">BRANCH CODE: *</label>
+                            <input type="text" id="branchCode" name="branchCode" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>DOCUMENT UPLOADS</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Please upload all required documents (PDF, JPG, PNG - Max 5MB each)</p>
+                    
+                    <div class="form-group">
+                        <label for="idDocument">Copy of ID / Passport: *</label>
+                        <input type="file" id="idDocument" name="idDocument" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Upload a clear copy of your identification document</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proofResidence">Proof of Residence (within 3 months): *</label>
+                        <input type="file" id="proofResidence" name="proofResidence" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Utility bill, bank statement, or rental agreement</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankProof">Proof of Bank Account Details: *</label>
+                        <input type="file" id="bankProof" name="bankProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Bank statement or confirmation letter</small>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+                    <button type="button" class="btn" onclick="nextPage()">Next Page</button>
+                </div>
+            </div>
+
+            <!-- PAGE 2 -->
+            <div class="form-page" id="page2" style="display: none;">
+                <div class="form-section">
+                    <h3>FIRST AND ANTICIPATED FUTURE TRANSACTION SIZE</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="checkbox" id="range1" name="transactionSize" value="R0-R20000">
+                            <label for="range1">R0 - R20 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range2" name="transactionSize" value="R20000-R100000">
+                            <label for="range2">R20 000 - R 100 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range3" name="transactionSize" value="R100000-R500000">
+                            <label for="range3">R100 000 - R500 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range4" name="transactionSize" value="R500000+">
+                            <label for="range4">R500 000 plus</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>ANTICIPATED ANNUAL TRANSACTIONS</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="freq1" name="annualTransactions" value="1-5">
+                            <label for="freq1">1 - 5</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq2" name="annualTransactions" value="5-10">
+                            <label for="freq2">5 - 10</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq3" name="annualTransactions" value="10-20">
+                            <label for="freq3">10 - 20</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq4" name="annualTransactions" value="20+">
+                            <label for="freq4">20 plus</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>PEP DECLARATION</h3>
+                    <p style="margin-bottom: 15px; font-size: 0.95em;">Please indicate whether you, an immediate family member, or a known close associate currently holds or previously held any of the following roles:</p>
+                    <p style="font-size: 0.85em; color: #666; margin-bottom: 15px; font-style: italic;">📱 On mobile/tablet: Scroll table horizontally if needed</p>
+                    
+                    <div class="pep-table-container" style="overflow-x: auto;">
+                        <table class="pep-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5;">
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">Category</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">Declaration</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold; width: 80px;">Yes</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold; width: 80px;">No</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Domestic Politically Exposed Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are you, or an immediate family member or known close associate, a current or former senior public official in South Africa (including senior political office bearers, senior government or municipal officials, members of the judiciary, senior military officials, traditional leaders, or senior executives of public entities or international organisations)?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_domestic_yes" name="pep_domestic" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_domestic_no" name="pep_domestic" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Foreign Politically Exposed Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are you, or an immediate family member or known close associate, a current or former senior public official in a foreign country (including heads of state, ministers, senior political leaders, judicial, military or state-owned entity executives)?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_foreign_yes" name="pep_foreign" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_foreign_no" name="pep_foreign" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Prominent Influential Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are you, or an immediate family member or known close associate, a director, senior executive or controlling officer of a company that contracts with an organ of state above the prescribed threshold?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_prominent_yes" name="pep_prominent" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_prominent_no" name="pep_prominent" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="pepDetailsSection" style="display: none; margin-top: 25px;">
+                        <h4 style="margin-bottom: 15px;">If Yes, please provide details below:</h4>
+                        <p style="font-size: 0.85em; color: #666; margin-bottom: 10px; font-style: italic;">📱 Scroll table horizontally on smaller screens</p>
+                        <div class="pep-details-table" style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                                <thead>
+                                    <tr style="background-color: #f5f5f5;">
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Position Held</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Organisation / Country</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Relationship to Client</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Period Held</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_position_1" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_organisation_1" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_relationship_1" placeholder="e.g., Self, Spouse, Parent" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_period_1" placeholder="e.g., 2015-2020" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_position_2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_organisation_2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_relationship_2" placeholder="e.g., Self, Spouse, Parent" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pep_period_2" placeholder="e.g., 2015-2020" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" onclick="addPepRow()" style="padding: 8px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">+ Add Another Row</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="declaration-box">
+                    <h4>ACKNOWLEDGMENT, DECLARATION & DISCLAIMER</h4>
+                    <ul>
+                        <li>I/We acknowledge that entry into IBV Gold (Pty) Ltd's premises and all transactions conducted with IBV Gold are at my/our own risk, subject to applicable law.</li>
+                        <li>To the fullest extent permitted by law, IBV Gold, its directors, shareholders, employees and agents shall not be liable for any loss, damage, injury, cost or expense arising from theft, robbery, fire, accident or any other cause on its premises or in connection with its services, save for loss arising from its gross negligence or wilful misconduct.</li>
+                        <li>I/We declare and warrant that all information provided is true and accurate, that I/we comply with all applicable laws and regulatory requirements (including AML and counter-terrorist financing laws), and that I/we are not involved in any unlawful activities.</li>
+                        <li>I/We consent to IBV Gold conducting lawful background, credit, criminal and regulatory checks and to the disclosure of relevant information to regulatory authorities where required by law.</li>
+                        <li>I/We acknowledge that approval of this application is subject to IBV Gold's internal compliance and approval processes.</li>
+                    </ul>
+                </div>
+
+                <div class="declaration-box" style="margin-top: 30px;">
+                    <h4>DOCUMENTS REQUIRED</h4>
+                    <p style="margin-bottom: 15px; font-size: 0.9em;">(PLEASE ENSURE ALL DOCUMENTS ARE UPLOADED)</p>
+                    <ul class="document-checklist">
+                        <li>
+                            <span class="doc-status" id="status-idDocument">○</span>
+                            <span>Copy of ID / Passport</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-proofResidence">○</span>
+                            <span>Proof of Residence (within 3 months)</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-bankProof">○</span>
+                            <span>Proof of Bank Account Details</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="attestation">
+                    <p>I HEREBY SWEAR OR AFFIRM THAT THE INFORMATION SET FORTH ABOVE AND ANY OTHER DOCUMENTATION PROVIDED TO IBV FOR THE PURPOSE OF ESTABLISHING AN ACCOUNT WITH IBV GOLD IS TRUE, ACCURATE AND COMPLETE.</p>
+                    
+                    <div class="form-row" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="attestationName">FULL NAMES: *</label>
+                            <input type="text" id="attestationName" name="attestationName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="attestationDate">DATE: *</label>
+                            <input type="date" id="attestationDate" name="attestationDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signature">AUTHORIZED SIGNATURE: *</label>
+                        <div class="signature-container">
+                            <canvas id="signatureCanvas" width="500" height="150"></canvas>
+                            <input type="hidden" id="signatureData" name="signatureData" required>
+                            <div class="signature-buttons">
+                                <button type="button" id="clearSignature" class="btn-secondary">Clear Signature</button>
+                            </div>
+                            <p class="signature-help">Draw your signature above using your mouse or touch screen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="successMessage" class="alert alert-success" style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    ✓ Application submitted successfully! Redirecting...
+                </div>
+                <div id="errorMessage" class="alert alert-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    ✗ Error submitting application. Please try again.
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="previousPage()">Previous Page</button>
+                    <button type="submit" class="btn" id="submitBtn">Submit Application</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 2;
+        let pepRowCounter = 2;
+
+        // PEP Declaration functions
+        function togglePepDetails() {
+            const domesticYes = document.getElementById('pep_domestic_yes').checked;
+            const foreignYes = document.getElementById('pep_foreign_yes').checked;
+            const prominentYes = document.getElementById('pep_prominent_yes').checked;
+            
+            const detailsSection = document.getElementById('pepDetailsSection');
+            
+            if (domesticYes || foreignYes || prominentYes) {
+                detailsSection.style.display = 'block';
+            } else {
+                detailsSection.style.display = 'none';
+            }
+
+            // Ensure only one checkbox is selected per row (Yes or No)
+            handleCheckboxExclusive('pep_domestic_yes', 'pep_domestic_no');
+            handleCheckboxExclusive('pep_foreign_yes', 'pep_foreign_no');
+            handleCheckboxExclusive('pep_prominent_yes', 'pep_prominent_no');
+        }
+
+        function handleCheckboxExclusive(yesId, noId) {
+            const yesCheckbox = document.getElementById(yesId);
+            const noCheckbox = document.getElementById(noId);
+            
+            if (yesCheckbox.checked && noCheckbox.checked) {
+                if (event.target.id === yesId) {
+                    noCheckbox.checked = false;
+                } else {
+                    yesCheckbox.checked = false;
+                }
+            }
+        }
+
+        function addPepRow() {
+            pepRowCounter++;
+            const tbody = document.querySelector('.pep-details-table tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td style="border: 1px solid #ddd; padding: 8px;">
+                    <input type="text" name="pep_position_${pepRowCounter}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">
+                    <input type="text" name="pep_organisation_${pepRowCounter}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">
+                    <input type="text" name="pep_relationship_${pepRowCounter}" placeholder="e.g., Self, Spouse, Parent" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">
+                    <input type="text" name="pep_period_${pepRowCounter}" placeholder="e.g., 2015-2020" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function updateProgress() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('pageIndicator').textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById('page' + currentPage).style.display = 'none';
+                currentPage++;
+                document.getElementById('page' + currentPage).style.display = 'block';
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                document.getElementById('page' + currentPage).style.display = 'none';
+                currentPage--;
+                document.getElementById('page' + currentPage).style.display = 'block';
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        document.getElementById('individualForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            // Check for duplicate
+            submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Checking for duplicates...';
+            submitBtn.disabled = true;
+            
+            const clientName = document.getElementById('fullName').value;
+            
+            try {
+                // Check for duplicates
+                const duplicateCheck = await fetch('http://localhost:3000/api/check-duplicate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ clientName })
+                });
+                
+                const duplicateResult = await duplicateCheck.json();
+                
+                if (duplicateResult.exists) {
+                    const existingInfo = duplicateResult.existingFolders.map(folder => 
+                        `• ${folder.name} (Created: ${new Date(folder.createdDate).toLocaleDateString()})`
+                    ).join('\\n');
+                    
+                    const proceed = confirm(
+                        `⚠️ WARNING: This client already exists in SharePoint!\\n\\n${existingInfo}\\n\\nDo you want to proceed anyway?`
+                    );
+                    
+                    if (!proceed) {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                }
+                
+                // Proceed with submission
+                submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Submitting application...';
+                
+                const formData = new FormData();
+                
+                // Add all form fields
+                const inputs = document.querySelectorAll('input:not([type="file"]):not([type="radio"]):not([type="checkbox"]), select, textarea');
+                inputs.forEach(input => {
+                    if (input.name && input.value) {
+                        formData.append(input.name, input.value);
+                    }
+                });
+                
+                // Add radio buttons
+                const radios = document.querySelectorAll('input[type="radio"]:checked');
+                radios.forEach(radio => {
+                    if (radio.name) {
+                        formData.append(radio.name, radio.value);
+                    }
+                });
+                
+                // Add checkboxes (only checked ones with their values)
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.name && checkbox.value) {
+                        formData.append(checkbox.name, checkbox.value);
+                    }
+                });
+                
+                // Add application type
+                formData.append('applicationType', 'Individual');
+                formData.append('allowDuplicate', duplicateResult.exists ? 'true' : 'false');
+                
+                // Add all uploaded files
+                const fileInputs = document.querySelectorAll('input[type="file"]');
+                fileInputs.forEach(input => {
+                    if (input.files.length > 0) {
+                        Array.from(input.files).forEach(file => {
+                            formData.append('files', file, input.name + '_' + file.name);
+                        });
+                    }
+                });
+                
+                // Submit to server
+                const response = await fetch('http://localhost:3000/api/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    successMsg.style.display = 'block';
+                    successMsg.innerHTML = `✓ Application submitted successfully!<br><br>We will contact you in 3-5 business days.<br>Redirecting...`;
+                    submitBtn.innerHTML = '✓ Submitted';
+                    
+                    // Redirect after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 3000);
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                errorMsg.textContent = '✗ Error: ' + error.message;
+                errorMsg.style.display = 'block';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+
+        // Document upload tracking
+        function updateDocumentStatus() {
+            updateStatus('idDocument', 'status-idDocument');
+            updateStatus('proofResidence', 'status-proofResidence');
+            updateStatus('bankProof', 'status-bankProof');
+        }
+
+        function updateStatus(inputId, statusId) {
+            const input = document.getElementById(inputId);
+            if (input && input.files.length > 0) {
+                markComplete(statusId);
+            } else {
+                markIncomplete(statusId);
+            }
+        }
+
+        function markComplete(statusId) {
+            const element = document.getElementById(statusId);
+            if (element) {
+                element.textContent = '✓';
+                element.style.color = '#28a745';
+                element.style.fontWeight = 'bold';
+            }
+        }
+
+        function markIncomplete(statusId) {
+            const element = document.getElementById(statusId);
+            if (element) {
+                element.textContent = '○';
+                element.style.color = '#999';
+                element.style.fontWeight = 'normal';
+            }
+        }
+
+        // Add change listeners to all file inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', updateDocumentStatus);
+            });
+        });
+
+        // Update status when navigating to page 2
+        const originalNextPage = nextPage;
+        nextPage = function() {
+            originalNextPage();
+            if (currentPage === 2) {
+                updateDocumentStatus();
+            }
+        };
+
+        // Initialize
+        updateProgress();
+
+        // Signature Canvas Setup
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        const signatureDataInput = document.getElementById('signatureData');
+        const clearBtn = document.getElementById('clearSignature');
+        
+        let drawing = false;
+        let hasSignature = false;
+        
+        // Set canvas size properly
+        canvas.width = 500;
+        canvas.height = 150;
+        
+        // Configure drawing context
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        // Mouse events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        function startDrawing(e) {
+            e.preventDefault();
+            drawing = true;
+            const pos = getMousePos(canvas, e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            
+            const pos = getMousePos(canvas, e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            
+            hasSignature = true;
+        }
+        
+        function stopDrawing(e) {
+            if (drawing) {
+                drawing = false;
+                ctx.beginPath();
+                if (hasSignature) {
+                    updateSignatureData();
+                }
+            }
+        }
+        
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (evt.clientX - rect.left) * scaleX,
+                y: (evt.clientY - rect.top) * scaleY
+            };
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function updateSignatureData() {
+            const dataURL = canvas.toDataURL('image/png');
+            signatureDataInput.value = dataURL;
+        }
+        
+        clearBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataInput.value = '';
+            hasSignature = false;
+        });
+        
+        // Validate signature before form submission
+        const originalFormSubmit = document.getElementById('individualForm').onsubmit;
+        document.getElementById('individualForm').addEventListener('submit', function(e) {
+            if (!hasSignature && currentPage === totalPages) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                alert('Please provide your signature before submitting.');
+                return false;
+            }
+        }, true);
+    </script>
+</body>
+</html>

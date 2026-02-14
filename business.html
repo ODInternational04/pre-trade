@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBV GOLD - Business Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="IBV-Gold-1.png" alt="IBV Gold" style="max-width: 200px; height: auto;">
+            </div>
+            <div class="header-title">
+                <h2>PRE-TRADE APPLICATION FORM</h2>
+                <p style="color: #666; margin-top: 10px;">BUSINESS APPLICATION</p>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%;" id="progressBar"></div>
+        </div>
+        <div class="page-indicator" id="pageIndicator">Page 1 of 3</div>
+
+        <form id="businessForm">
+            <!-- PAGE 1 -->
+            <div class="form-page" id="page1">
+                <div class="form-section">
+                    <h3>TYPE OF APPLICANT</h3>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="business" name="applicantType" value="business" checked>
+                                <label for="business">BUSINESS</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>DATE:</label>
+                        <input type="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>RESIDENCY OF ENTITY</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="resident" name="residency" value="resident" required>
+                            <label for="resident">RESIDENT</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="nonResident" name="residency" value="non-resident">
+                            <label for="nonResident">NON-RESIDENT</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>REPRESENTATIVE'S DETAILS</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="repFullName">FULL NAME: *</label>
+                            <input type="text" id="repFullName" name="repFullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="repIdNumber">ID NUMBER: *</label>
+                            <input type="text" id="repIdNumber" name="repIdNumber" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="repMobile">MOBILE: *</label>
+                            <input type="tel" id="repMobile" name="repMobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="repEmail">EMAIL ADDRESS: *</label>
+                            <input type="email" id="repEmail" name="repEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="residentialAddress">RESIDENTIAL ADDRESS: *</label>
+                            <textarea id="residentialAddress" name="residentialAddress" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="taxNumber">TAX NUMBER:</label>
+                            <input type="text" id="taxNumber" name="taxNumber">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>BUSINESS DETAILS</h3>
+                    <div class="form-group">
+                        <label>ENTITY TYPE:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="closeCorp" name="entityType" value="close-corporation">
+                                <label for="closeCorp">CLOSE CORPORATION</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="privateCo" name="entityType" value="private-company">
+                                <label for="privateCo">PRIVATE COMPANY</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="partnership" name="entityType" value="partnership">
+                                <label for="partnership">PARTNERSHIP</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="trust" name="entityType" value="trust">
+                                <label for="trust">TRUST</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="soleTrader" name="entityType" value="sole-trader">
+                                <label for="soleTrader">SOLE TRADER</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="personalLiability" name="entityType" value="personal-liability">
+                                <label for="personalLiability">PERSONAL LIABILITY</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="companyRegName">COMPANY/TRUST REGISTRATION NAME: *</label>
+                            <input type="text" id="companyRegName" name="companyRegName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyRegNumber">COMPANY / TRUST REG. NUMBER: *</label>
+                            <input type="text" id="companyRegNumber" name="companyRegNumber" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vatNumber">VAT NUMBER:</label>
+                            <input type="text" id="vatNumber" name="vatNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyTaxNumber">TAX NUMBER:</label>
+                            <input type="text" id="companyTaxNumber" name="companyTaxNumber">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="businessAddress">BUSINESS ADDRESS: *</label>
+                            <textarea id="businessAddress" name="businessAddress" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">WEBSITE:</label>
+                            <input type="text" id="website" name="website">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="busMobile">BUS. MOBILE NUMBER: *</label>
+                            <input type="tel" id="busMobile" name="busMobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="busEmail">EMAIL ADDRESS: *</label>
+                            <input type="email" id="busEmail" name="busEmail" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>NATURE OF BUSINESS</h3>
+                    <div class="form-group">
+                        <label for="sourceOfFunds">SOURCE OF FUNDS:</label>
+                        <input type="text" id="sourceOfFunds" name="sourceOfFunds" placeholder="(Organised/Self - Activity/VIA Dependent Funds)">
+                    </div>
+                    <div class="form-group">
+                        <label for="sourceOfWealth">SOURCE OF WEALTH:</label>
+                        <input type="text" id="sourceOfWealth" name="sourceOfWealth" placeholder="(Activities/Natural Gas/Metals/Net Worth of Business/Capital)">
+                    </div>
+                    <div class="form-group">
+                        <label>PURPOSE OF TRANSACTION:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="investment" name="transactionPurpose" value="investment">
+                                <label for="investment">INVESTMENT/RELOCATION OF ASSETS</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="personalUse" name="transactionPurpose" value="personal">
+                                <label for="personalUse">PERSONAL USE</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="gift" name="transactionPurpose" value="gift">
+                                <label for="gift">GIFT</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="other" name="transactionPurpose" value="other">
+                                <label for="other">OTHER</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>BANKING DETAILS</h3>
+                    <div class="form-group">
+                        <label for="accountHolder">ACCOUNT HOLDER: *</label>
+                        <input type="text" id="accountHolder" name="accountHolder" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bankName">NAME OF BANK: *</label>
+                            <input type="text" id="bankName" name="bankName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountType">TYPE OF ACCOUNT: *</label>
+                            <input type="text" id="accountType" name="accountType" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accountNumber">ACCOUNT NUMBER: *</label>
+                            <input type="text" id="accountNumber" name="accountNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="branchCode">BRANCH CODE: *</label>
+                            <input type="text" id="branchCode" name="branchCode" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>DOCUMENT UPLOADS - REPRESENTATIVE</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Please upload representative documents (PDF, JPG, PNG - Max 5MB each)</p>
+                    
+                    <div class="form-group">
+                        <label for="repIdDocument">Representative ID / Passport: *</label>
+                        <input type="file" id="repIdDocument" name="repIdDocument" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Clear copy of representative's identification</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repProofResidence">Representative Proof of Residence (within 3 months): *</label>
+                        <input type="file" id="repProofResidence" name="repProofResidence" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Utility bill, bank statement, or rental agreement</small>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+                    <button type="button" class="btn" onclick="nextPage()">Next Page</button>
+                </div>
+            </div>
+
+            <!-- PAGE 2 -->
+            <div class="form-page" id="page2" style="display: none;">
+                <div class="form-section">
+                    <h3>DOCUMENT UPLOADS - COMPANY/ENTITY DOCUMENTS</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">All documents must be certified copies (PDF, JPG, PNG - Max 5MB each)</p>
+                    
+                    <div class="form-group">
+                        <label for="certIncorporation">Entity Certificate of Incorporation: *</label>
+                        <input type="file" id="certIncorporation" name="certIncorporation" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Certified copy of registration certificate</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="moiArticles">Entity MOI / Articles of Association: *</label>
+                        <input type="file" id="moiArticles" name="moiArticles" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Memorandum of Incorporation or Articles</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shareholderList">List of Shareholders and/or Beneficial Owners: *</label>
+                        <input type="file" id="shareholderList" name="shareholderList" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Complete list with ownership percentages</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shareCertificates">Share Certificates (if applicable):</label>
+                        <input type="file" id="shareCertificates" name="shareCertificates" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                        <small style="display: block; margin-top: 5px; color: #666;">For shareholders holding 25% or more</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="businessAddressProof">Proof of Registered Business Address: *</label>
+                        <input type="file" id="businessAddressProof" name="businessAddressProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Utility bill, rental agreement, or lease</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankAccountProof">Proof of Business Bank Account: *</label>
+                        <input type="file" id="bankAccountProof" name="bankAccountProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small style="display: block; margin-top: 5px; color: #666;">Bank statement or confirmation letter</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sourceProof">Proof of Source of Funds and Wealth:</label>
+                        <input type="file" id="sourceProof" name="sourceProof" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple>
+                        <small style="display: block; margin-top: 5px; color: #666;">Financial statements, contracts, or other documentation</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="boardResolution">Board/Trust Resolution - Authorisation Letter:</label>
+                        <input type="file" id="boardResolution" name="boardResolution" accept=".pdf,.jpg,.jpeg,.png">
+                        <small style="display: block; margin-top: 5px; color: #666;">Authorizing persons to trade with IBV Gold</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="thirdPartyAuth">Third Party Collections - Authorisation Letter:</label>
+                        <input type="file" id="thirdPartyAuth" name="thirdPartyAuth" accept=".pdf,.jpg,.jpeg,.png">
+                        <small style="display: block; margin-top: 5px; color: #666;">If collections will be done by third parties</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>DIRECTOR / TRUSTEE/ MEMBERS - PLEASE ATTACH ID AND PROOF OF RESIDENCE FOR EACH DIRECTOR/TRUSTEE/MEMBER</h3>
+                    <div id="directorsContainer">
+                        <div class="director-entry" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>FULL NAMES:</label>
+                                    <input type="text" name="directorName[]">
+                                </div>
+                                <div class="form-group">
+                                    <label>ID NUMBER:</label>
+                                    <input type="text" name="directorId[]">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>CONTACT DETAILS:</label>
+                                    <input type="text" name="directorContact[]">
+                                </div>
+                                <div class="form-group">
+                                    <label>SIGNATURE:</label>
+                                    <input type="text" name="directorSignature[]" placeholder="Type full name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Upload ID Document:</label>
+                                    <input type="file" name="directorIdDoc[]" accept=".pdf,.jpg,.jpeg,.png">
+                                    <small style="display: block; margin-top: 5px; color: #666;">Certified copy of ID/Passport</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload Proof of Residence:</label>
+                                    <input type="file" name="directorProofRes[]" accept=".pdf,.jpg,.jpeg,.png">
+                                    <small style="display: block; margin-top: 5px; color: #666;">Within 3 months</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="addDirector()" style="margin-bottom: 20px;">Add Another Director/Trustee/Member</button>
+                </div>
+
+                <div class="form-section">
+                    <h3>BOARD / TRUST RESOLUTION - AUTHORISED PERSONS WHO MAY TRADE WITH IBV GOLD (ORDERS AND COLLECTIONS)</h3>
+                    <div id="authorisedContainer">
+                        <div class="authorised-entry" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>NAME OF AUTHORISED SIGNATORY:</label>
+                                    <input type="text" name="authName[]">
+                                </div>
+                                <div class="form-group">
+                                    <label>DESIGNATION:</label>
+                                    <input type="text" name="authDesignation[]">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>ID NUMBER:</label>
+                                    <input type="text" name="authId[]">
+                                </div>
+                                <div class="form-group">
+                                    <label>SIGNATURE:</label>
+                                    <input type="text" name="authSignature[]" placeholder="Type full name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload ID/Passport:</label>
+                                <input type="file" name="authIdDoc[]" accept=".pdf,.jpg,.jpeg,.png">
+                                <small style="display: block; margin-top: 5px; color: #666;">Certified copy of identification</small>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="addAuthorised()" style="margin-bottom: 20px;">Add Another Authorised Person</button>
+                </div>
+
+                <div class="form-section">
+                    <h3>SHAREHOLDER NAME(S) IF HOLDS 25% OR MORE OF SHARE</h3>
+                    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">(Attach copy of share certificate)</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>1.</label>
+                            <input type="text" name="shareholder1">
+                        </div>
+                        <div class="form-group">
+                            <label>2.</label>
+                            <input type="text" name="shareholder2">
+                        </div>
+                        <div class="form-group">
+                            <label>3.</label>
+                            <input type="text" name="shareholder3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>FIRST AND ANTICIPATED FUTURE TRANSACTION SIZE</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="checkbox" id="range1" name="transactionSize" value="R0-R20000">
+                            <label for="range1">R0 - R20 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range2" name="transactionSize" value="R20000-R100000">
+                            <label for="range2">R20 000 - R 100 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range3" name="transactionSize" value="R100000-R500000">
+                            <label for="range3">R100 000 - R500 000</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="range4" name="transactionSize" value="R500000+">
+                            <label for="range4">R500 000 plus</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>ANTICIPATED ANNUAL TRANSACTIONS</h3>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="freq1" name="annualTransactions" value="1-5">
+                            <label for="freq1">1 - 5</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq2" name="annualTransactions" value="5-10">
+                            <label for="freq2">5 - 10</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq3" name="annualTransactions" value="10-20">
+                            <label for="freq3">10 - 20</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="freq4" name="annualTransactions" value="20+">
+                            <label for="freq4">20 plus</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="previousPage()">Previous Page</button>
+                    <button type="button" class="btn" onclick="nextPage()">Next Page</button>
+                </div>
+            </div>
+
+            <!-- PAGE 3 -->
+            <div class="form-page" id="page3" style="display: none;">
+                <div class="form-section">
+                    <h3>PEP DECLARATION</h3>
+                    <p style="margin-bottom: 15px; font-size: 0.95em;">Please indicate whether you, the organisation, directors or members of the organisation currently hold or previously held any of the following roles:</p>
+                    <p style="font-size: 0.85em; color: #666; margin-bottom: 15px; font-style: italic;">📱 On mobile/tablet: Scroll table horizontally if needed</p>
+                    
+                    <div class="pep-table-container" style="overflow-x: auto;">
+                        <table class="pep-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5;">
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">Category</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">Declaration</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold; width: 80px;">Yes</th>
+                                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center; font-weight: bold; width: 80px;">No</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Domestic Politically Exposed Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are your organisation's shareholders, directors, officers, or senior employees senior officials, a current or former senior public official in South Africa (including senior political office bearers, Senior government or municipal officials, members of the judiciary, senior military officials, traditional leaders, or senior executives of public entities or international organisations)?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_officials_yes" name="pep_officials" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_officials_no" name="pep_officials" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Foreign Politically Exposed Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are your organisation's shareholders, directors, officers, or senior employees senior officials, a current or former senior public official in a foreign country (including heads of state, ministers, senior political leaders, judicial, military or state-owned entity executives)?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_relatives_yes" name="pep_relatives" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_relatives_no" name="pep_relatives" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 12px; vertical-align: top;">
+                                        <strong>Prominent Influential Person</strong>
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; font-size: 0.9em;">
+                                        Are your organisation's shareholders, directors, officers, or senior employees senior officials, a director, senior executive or controlling officer of a company that contracts with an organ of state above the prescribed threshold?
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_prominent_yes" name="pep_prominent" value="yes" onchange="togglePepDetails()">
+                                    </td>
+                                    <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">
+                                        <input type="checkbox" id="pep_prominent_no" name="pep_prominent" value="no" onchange="togglePepDetails()">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="pepDetailsSection" style="display: none; margin-top: 25px;">
+                        <h4 style="margin-bottom: 15px;">If Yes, please provide details below:</h4>
+                        <p style="font-size: 0.85em; color: #666; margin-bottom: 10px; font-style: italic;">📱 Scroll table horizontally on smaller screens</p>
+                        <div class="pep-details-table" style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                                <thead>
+                                    <tr style="background-color: #f5f5f5;">
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Position Held</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Organisation / Country</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Relationship to Client</th>
+                                        <th style="border: 1px solid #ddd; padding: 10px; text-align: left; font-weight: bold;">Period Held</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPosition1" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailOrg1" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailRelation1" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPeriod1" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPosition2" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailOrg2" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailRelation2" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPeriod2" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPosition3" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailOrg3" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailRelation3" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <input type="text" name="pepDetailPeriod3" style="width: 100%; border: none; padding: 5px;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="declaration-box">
+                    <h4>ACKNOWLEDGMENT, DECLARATION & DISCLAIMER</h4>
+                    <p style="margin-bottom: 15px;">By signing this document, I/We (the Company, its Directors and Ultimate Beneficial Owners) declare that:</p>
+                    <ul>
+                        <li>I/We acknowledge that entry into IBV Gold (Pty) Ltd's premises and all transactions conducted with IBV Gold are at my/our own risk, subject to applicable law.</li>
+                        <li>To the fullest extent permitted by law, IBV Gold, its directors, shareholders, employees and agents shall not be liable for any loss, damage, injury, cost or expense arising from theft, robbery, fire, accident or any other cause on its premises or in connection with its services, save for loss arising from its gross negligence or wilful misconduct.</li>
+                        <li>I/We declare and warrant that all information provided is true and accurate, that I/we comply with all applicable laws and regulatory requirements (including AML and counter-terrorist financing laws), and that I/we are not involved in any unlawful activities.</li>
+                        <li>I/We consent to IBV Gold conducting lawful background, credit, criminal and regulatory checks and to the disclosure of relevant information to regulatory authorities where required by law.</li>
+                        <li>I/We acknowledge that approval of this application is subject to IBV Gold's internal compliance and approval processes.</li>
+                    </ul>
+                </div>
+
+                <div class="attestation">
+                    <p>I HEREBY SWEAR OR AFFIRM THAT THE INFORMATION SET FORTH ABOVE AND ANY OTHER DOCUMENTATION PROVIDED TO IBV FOR THE PURPOSE OF ESTABLISHING AN ACCOUNT WITH IBV GOLD IS TRUE, ACCURATE AND COMPLETE.</p>
+                    
+                    <div class="form-row" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="attestationName">FULL NAMES: *</label>
+                            <input type="text" id="attestationName" name="attestationName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="attestationDate">DATE: *</label>
+                            <input type="date" id="attestationDate" name="attestationDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signature">AUTHORIZED SIGNATURE: *</label>
+                        <div class="signature-container">
+                            <canvas id="signatureCanvas" width="500" height="150"></canvas>
+                            <input type="hidden" id="signatureData" name="signatureData" required>
+                            <div class="signature-buttons">
+                                <button type="button" id="clearSignature" class="btn-secondary">Clear Signature</button>
+                            </div>
+                            <p class="signature-help">Draw your signature above using your mouse or touch screen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="declaration-box">
+                    <h4>DOCUMENTS REQUIRED</h4>
+                    <p style="margin-bottom: 15px; font-size: 0.9em;">(KINDLY ENSURE THAT ALL DOCUMENTS BELOW ARE CERTIFIED)</p>
+                    <ul class="document-checklist">
+                        <li>
+                            <span class="doc-status" id="status-repIdDocument">○</span>
+                            <span>Representative ID/Passport</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-repProofResidence">○</span>
+                            <span>Representative Proof of Residence</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-directors">○</span>
+                            <span>ID/PASSPORT OF EACH DIRECTOR</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-directorsRes">○</span>
+                            <span>PROOF OF RESIDENCE OF EACH DIRECTOR</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-authorised">○</span>
+                            <span>ID / PASSPORT OF AUTHORISED PERSON (AS PER BOARD RESOLUTION)</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-businessAddressProof">○</span>
+                            <span>PROOF OF REGISTERED BUSINESS ADDRESS (EG. UTILITY BILL, RENTAL AGREEMENT)</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-sourceProof">○</span>
+                            <span>PROOF OF SOURCE OF FUNDS AND WEALTH</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-certIncorporation">○</span>
+                            <span>ENTITY CERTIFICATE OF INCORPORATION</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-moiArticles">○</span>
+                            <span>ENTITY MOI / ARTICLES OF ASSOCIATION</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-shareholderList">○</span>
+                            <span>LIST OF SHAREHOLDERS AND/OR BENEFICIAL OWNERS</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-bankAccountProof">○</span>
+                            <span>PROOF OF BUSINESS BANK ACCOUNT</span>
+                        </li>
+                        <li>
+                            <span class="doc-status" id="status-thirdPartyAuth">○</span>
+                            <span>THIRD PARTY COLLECTIONS - AUTHORISATION LETTER</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="successMessage" class="alert alert-success" style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    ✓ Application submitted successfully! Redirecting...
+                </div>
+                <div id="errorMessage" class="alert alert-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                    ✗ Error submitting application. Please try again.
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="previousPage()">Previous Page</button>
+                    <button type="submit" class="btn" id="submitBtn">Submit Application</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+
+        // PEP Declaration functions
+        function togglePepDetails() {
+            const officialsYes = document.getElementById('pep_officials_yes').checked;
+            const relativesYes = document.getElementById('pep_relatives_yes').checked;
+            const prominentYes = document.getElementById('pep_prominent_yes').checked;
+            
+            const detailsSection = document.getElementById('pepDetailsSection');
+            
+            if (officialsYes || relativesYes || prominentYes) {
+                detailsSection.style.display = 'block';
+            } else {
+                detailsSection.style.display = 'none';
+            }
+
+            // Ensure only one checkbox is selected per row (Yes or No)
+            handleCheckboxExclusive('pep_officials_yes', 'pep_officials_no');
+            handleCheckboxExclusive('pep_relatives_yes', 'pep_relatives_no');
+            handleCheckboxExclusive('pep_prominent_yes', 'pep_prominent_no');
+        }
+
+        function handleCheckboxExclusive(yesId, noId) {
+            const yesCheckbox = document.getElementById(yesId);
+            const noCheckbox = document.getElementById(noId);
+            
+            if (yesCheckbox.checked && noCheckbox.checked) {
+                if (event.target.id === yesId) {
+                    noCheckbox.checked = false;
+                } else {
+                    yesCheckbox.checked = false;
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('pageIndicator').textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById('page' + currentPage).style.display = 'none';
+                currentPage++;
+                document.getElementById('page' + currentPage).style.display = 'block';
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                document.getElementById('page' + currentPage).style.display = 'none';
+                currentPage--;
+                document.getElementById('page' + currentPage).style.display = 'block';
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function addDirector() {
+            const container = document.getElementById('directorsContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'director-entry';
+            newEntry.style = 'border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;';
+            newEntry.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>FULL NAMES:</label>
+                        <input type="text" name="directorName[]">
+                    </div>
+                    <div class="form-group">
+                        <label>ID NUMBER:</label>
+                        <input type="text" name="directorId[]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>CONTACT DETAILS:</label>
+                        <input type="text" name="directorContact[]">
+                    </div>
+                    <div class="form-group">
+                        <label>SIGNATURE:</label>
+                        <input type="text" name="directorSignature[]" placeholder="Type full name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Upload ID Document:</label>
+                        <input type="file" name="directorIdDoc[]" accept=".pdf,.jpg,.jpeg,.png">
+                        <small style="display: block; margin-top: 5px; color: #666;">Certified copy of ID/Passport</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Proof of Residence:</label>
+                        <input type="file" name="directorProofRes[]" accept=".pdf,.jpg,.jpeg,.png">
+                        <small style="display: block; margin-top: 5px; color: #666;">Within 3 months</small>
+                    </div>
+                </div>
+            `;
+            container.appendChild(newEntry);
+        }
+
+        function addAuthorised() {
+            const container = document.getElementById('authorisedContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'authorised-entry';
+            newEntry.style = 'border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;';
+            newEntry.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>NAME OF AUTHORISED SIGNATORY:</label>
+                        <input type="text" name="authName[]">
+                    </div>
+                    <div class="form-group">
+                        <label>DESIGNATION:</label>
+                        <input type="text" name="authDesignation[]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ID NUMBER:</label>
+                        <input type="text" name="authId[]">
+                    </div>
+                    <div class="form-group">
+                        <label>SIGNATURE:</label>
+                        <input type="text" name="authSignature[]" placeholder="Type full name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Upload ID/Passport:</label>
+                    <input type="file" name="authIdDoc[]" accept=".pdf,.jpg,.jpeg,.png">
+                    <small style="display: block; margin-top: 5px; color: #666;">Certified copy of identification</small>
+                </div>
+            `;
+            container.appendChild(newEntry);
+        }
+
+        document.getElementById('businessForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            // Check for duplicate
+            submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Checking for duplicates...';
+            submitBtn.disabled = true;
+            
+            const clientName = document.getElementById('companyRegName').value || document.getElementById('repFullName').value;
+            
+            try {
+                // Check for duplicates
+                const duplicateCheck = await fetch('http://localhost:3000/api/check-duplicate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ clientName })
+                });
+                
+                const duplicateResult = await duplicateCheck.json();
+                
+                if (duplicateResult.exists) {
+                    const existingInfo = duplicateResult.existingFolders.map(folder => 
+                        `• ${folder.name} (Created: ${new Date(folder.createdDate).toLocaleDateString()})`
+                    ).join('\\n');
+                    
+                    const proceed = confirm(
+                        `⚠️ WARNING: This client already exists in SharePoint!\\n\\n${existingInfo}\\n\\nDo you want to proceed anyway?`
+                    );
+                    
+                    if (!proceed) {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                }
+                
+                // Proceed with submission
+                submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Submitting application...';
+                
+                const formData = new FormData();
+                
+                // Add all form fields
+                const inputs = document.querySelectorAll('input:not([type="file"]):not([type="radio"]):not([type="checkbox"]), select, textarea');
+                inputs.forEach(input => {
+                    if (input.name && input.value) {
+                        formData.append(input.name, input.value);
+                    }
+                });
+                
+                // Add radio buttons
+                const radios = document.querySelectorAll('input[type="radio"]:checked');
+                radios.forEach(radio => {
+                    if (radio.name) {
+                        formData.append(radio.name, radio.value);
+                    }
+                });
+                
+                // Add checkboxes (only checked ones with their values)
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.name && checkbox.value) {
+                        formData.append(checkbox.name, checkbox.value);
+                    }
+                });
+                
+                // Add application type
+                formData.append('applicationType', 'Business');
+                formData.append('allowDuplicate', duplicateResult.exists ? 'true' : 'false');
+                
+                // Add all uploaded files
+                const fileInputs = document.querySelectorAll('input[type="file"]');
+                fileInputs.forEach(input => {
+                    if (input.files.length > 0) {
+                        Array.from(input.files).forEach(file => {
+                            formData.append('files', file, input.name + '_' + file.name);
+                        });
+                    }
+                });
+                
+                // Submit to server
+                const response = await fetch('http://localhost:3000/api/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    successMsg.style.display = 'block';
+                    successMsg.innerHTML = `✓ Application submitted successfully!<br><br>We will contact you in 3-5 business days.<br>Redirecting...`;
+                    submitBtn.innerHTML = '✓ Submitted';
+                    
+                    // Redirect after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 3000);
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                errorMsg.textContent = '✗ Error: ' + error.message;
+                errorMsg.style.display = 'block';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+
+        // Document upload tracking
+        function updateDocumentStatus() {
+            // Representative documents
+            updateStatus('repIdDocument', 'status-repIdDocument');
+            updateStatus('repProofResidence', 'status-repProofResidence');
+            
+            // Company documents
+            updateStatus('certIncorporation', 'status-certIncorporation');
+            updateStatus('moiArticles', 'status-moiArticles');
+            updateStatus('shareholderList', 'status-shareholderList');
+            updateStatus('businessAddressProof', 'status-businessAddressProof');
+            updateStatus('bankAccountProof', 'status-bankAccountProof');
+            
+            // Optional documents
+            if (document.getElementById('sourceProof').files.length > 0) {
+                markComplete('status-sourceProof');
+            }
+            if (document.getElementById('thirdPartyAuth').files.length > 0) {
+                markComplete('status-thirdPartyAuth');
+            }
+            
+            // Check director documents
+            checkMultipleFiles('directorIdDoc[]', 'status-directors');
+            checkMultipleFiles('directorProofRes[]', 'status-directorsRes');
+            
+            // Check authorised person documents
+            checkMultipleFiles('authIdDoc[]', 'status-authorised');
+        }
+
+        function updateStatus(inputId, statusId) {
+            const input = document.getElementById(inputId);
+            if (input && input.files.length > 0) {
+                markComplete(statusId);
+            } else {
+                markIncomplete(statusId);
+            }
+        }
+
+        function checkMultipleFiles(inputName, statusId) {
+            const inputs = document.getElementsByName(inputName);
+            let hasFiles = false;
+            for (let input of inputs) {
+                if (input.files.length > 0) {
+                    hasFiles = true;
+                    break;
+                }
+            }
+            if (hasFiles) {
+                markComplete(statusId);
+            } else {
+                markIncomplete(statusId);
+            }
+        }
+
+        function markComplete(statusId) {
+            const element = document.getElementById(statusId);
+            if (element) {
+                element.textContent = '✓';
+                element.style.color = '#28a745';
+                element.style.fontWeight = 'bold';
+            }
+        }
+
+        function markIncomplete(statusId) {
+            const element = document.getElementById(statusId);
+            if (element) {
+                element.textContent = '○';
+                element.style.color = '#999';
+                element.style.fontWeight = 'normal';
+            }
+        }
+
+        // Add change listeners to all file inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', updateDocumentStatus);
+            });
+        });
+
+        // Update status when navigating to page 3
+        const originalNextPage = nextPage;
+        nextPage = function() {
+            originalNextPage();
+            if (currentPage === 3) {
+                updateDocumentStatus();
+            }
+        };
+
+        // Initialize
+        updateProgress();
+
+        // Signature Canvas Setup
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        const signatureDataInput = document.getElementById('signatureData');
+        const clearBtn = document.getElementById('clearSignature');
+        
+        let drawing = false;
+        let hasSignature = false;
+        
+        // Set canvas size properly
+        canvas.width = 500;
+        canvas.height = 150;
+        
+        // Configure drawing context
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        // Mouse events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        function startDrawing(e) {
+            e.preventDefault();
+            drawing = true;
+            const pos = getMousePos(canvas, e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            
+            const pos = getMousePos(canvas, e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            
+            hasSignature = true;
+        }
+        
+        function stopDrawing(e) {
+            if (drawing) {
+                drawing = false;
+                ctx.beginPath();
+                if (hasSignature) {
+                    updateSignatureData();
+                }
+            }
+        }
+        
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (evt.clientX - rect.left) * scaleX,
+                y: (evt.clientY - rect.top) * scaleY
+            };
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function updateSignatureData() {
+            const dataURL = canvas.toDataURL('image/png');
+            signatureDataInput.value = dataURL;
+        }
+        
+        clearBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataInput.value = '';
+            hasSignature = false;
+        });
+        
+        // Validate signature before form submission
+        document.getElementById('businessForm').addEventListener('submit', function(e) {
+            if (!hasSignature && currentPage === totalPages) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                alert('Please provide your signature before submitting.');
+                return false;
+            }
+        }, true);
+    </script>
+</body>
+</html>
