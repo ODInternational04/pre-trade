@@ -213,6 +213,7 @@ select {
     font-size: 1em;
     transition: border-color 0.3s;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 input[type="file"] {
@@ -535,6 +536,13 @@ button[type="button"]:hover,
     .pep-details-table input[type="text"] {
         padding: 6px;
         font-size: 0.82em;
+    }
+    
+    /* Fix date input sizing on mobile */
+    input[type="date"] {
+        padding: 10px;
+        font-size: 0.95em;
+        max-width: 100%;
     }
     
     #pepDetailsSection h4 {
