@@ -24,6 +24,14 @@
         <div class="page-indicator" id="pageIndicator">Page 1 of 2</div>
 
         <form id="individualForm">
+            <!-- Global messages (visible on all pages) -->
+            <div id="globalSuccessMessage" class="alert alert-success" style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                ✓ Application submitted successfully! Redirecting...
+            </div>
+            <div id="globalErrorMessage" class="alert alert-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                ✗ Error submitting application. Please try again.
+            </div>
+            
             <!-- PAGE 1 -->
             <div class="form-page" id="page1">
                 <div class="form-section">
@@ -535,8 +543,8 @@
             
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.innerHTML;
-            const successMsg = document.getElementById('successMessage');
-            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('globalSuccessMessage');
+            const errorMsg = document.getElementById('globalErrorMessage');
             
             // Hide previous messages
             successMsg.style.display = 'none';
@@ -558,9 +566,21 @@
             });
             
             if (missingFiles.length > 0) {
+                // Navigate back to page 1 where the file inputs are
+                if (currentPage === 2) {
+                    document.getElementById('page2').style.display = 'none';
+                    currentPage = 1;
+                    document.getElementById('page1').style.display = 'block';
+                    updateProgress();
+                }
+                
+                // Show error message at top of form
                 errorMsg.style.display = 'block';
                 errorMsg.innerHTML = `<strong>⚠ Incomplete Application</strong><br><br>Please upload the following required documents:<br>• ${missingFiles.join('<br>• ')}`;
+                
+                // Scroll to error message
                 errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
                 submitBtn.disabled = false;
                 return;
             }
