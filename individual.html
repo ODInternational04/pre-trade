@@ -542,6 +542,28 @@
             successMsg.style.display = 'none';
             errorMsg.style.display = 'none';
             
+            // Validate required files are uploaded
+            const requiredFiles = [
+                { id: 'idDocument', label: 'ID Document' },
+                { id: 'proofResidence', label: 'Proof of Residence' },
+                { id: 'bankProof', label: 'Bank Statement' }
+            ];
+            
+            const missingFiles = [];
+            requiredFiles.forEach(fileInfo => {
+                const fileInput = document.getElementById(fileInfo.id);
+                if (!fileInput.files || fileInput.files.length === 0) {
+                    missingFiles.push(fileInfo.label);
+                }
+            });
+            
+            if (missingFiles.length > 0) {
+                errorMsg.style.display = 'block';
+                errorMsg.innerHTML = `<strong>Incomplete Application</strong><br><br>Please upload the following required documents:<br>• ${missingFiles.join('<br>• ')}`;
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            
             // Check for duplicate
             submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Checking for duplicates...';
             submitBtn.disabled = true;
@@ -561,10 +583,10 @@
                 if (duplicateResult.exists) {
                     const existingInfo = duplicateResult.existingFolders.map(folder => 
                         `• ${folder.name} (Created: ${new Date(folder.createdDate).toLocaleDateString()})`
-                    ).join('\\n');
+                    ).join('\n');
                     
                     const proceed = confirm(
-                        `We already have your application.\\n\\n${existingInfo}\\n\\nWould you still like to continue and override the current info?`
+                        `We already have your application.\n\n${existingInfo}\n\nWould you still like to continue and override the current info?`
                     );
                     
                     if (!proceed) {
