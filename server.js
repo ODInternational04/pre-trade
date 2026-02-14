@@ -387,12 +387,60 @@ async function createClientInfoPDF(formData, clientFolder, signatureDataUrl) {
         
         doc.fontSize(8).fillColor('#000000').font('Helvetica');
         const pepData = [
-            `Foreign PEP: ${formData.foreignPep || 'No'}`,
-            `Domestic PEP: ${formData.domesticPep || 'No'}`,
-            `Family/Associate of PEP: ${formData.familyPep || 'No'}`
+            `Foreign PEP: ${formData.pep_foreign || formData.foreignPep || 'No'}`,
+            `Domestic PEP: ${formData.pep_domestic || formData.domesticPep || 'No'}`,
+            `Prominent Person: ${formData.pep_prominent || formData.familyPep || 'No'}`
         ].join('  |  ');
         doc.text(pepData, 30);
-        doc.y += 12;
+        doc.y += 10;
+        
+        // Add PEP Details if any exist
+        const hasPepDetails = formData.pep_position_1 || formData.pep_position_2;
+        if (hasPepDetails) {
+            doc.y += 5;
+            doc.fontSize(8).fillColor('#000000').font('Helvetica-Bold').text('PEP Details:', 30);
+            doc.y += 6;
+            
+            doc.fontSize(7).fillColor('#000000').font('Helvetica');
+            
+            // Check for up to 5 PEP entries (common case is 2, but allow for dynamically added rows)
+            for (let i = 1; i <= 5; i++) {
+                const position = formData[`pep_position_${i}`];
+                const organisation = formData[`pep_organisation_${i}`];
+                const relationship = formData[`pep_relationship_${i}`];
+                const period = formData[`pep_period_${i}`];
+                
+                if (position || organisation || relationship || period) {
+                    doc.font('Helvetica-Bold').text(`Entry ${i}:`, 30, doc.y);
+                    doc.y += 8;
+                    
+                    if (position) {
+                        doc.font('Helvetica-Bold').text('Position: ', 35, doc.y, { continued: true });
+                        doc.font('Helvetica').text(position);
+                        doc.y += 8;
+                    }
+                    if (organisation) {
+                        doc.font('Helvetica-Bold').text('Organisation/Country: ', 35, doc.y, { continued: true });
+                        doc.font('Helvetica').text(organisation);
+                        doc.y += 8;
+                    }
+                    if (relationship) {
+                        doc.font('Helvetica-Bold').text('Relationship: ', 35, doc.y, { continued: true });
+                        doc.font('Helvetica').text(relationship);
+                        doc.y += 8;
+                    }
+                    if (period) {
+                        doc.font('Helvetica-Bold').text('Period Held: ', 35, doc.y, { continued: true });
+                        doc.font('Helvetica').text(period);
+                        doc.y += 8;
+                    }
+                    
+                    doc.y += 4; // Space between entries
+                }
+            }
+        }
+        
+        doc.y += 8;
         
         // Attestation - compact
         doc.fontSize(10).fillColor('#000000').font('Helvetica-Bold').text('ATTESTATION', 30);
