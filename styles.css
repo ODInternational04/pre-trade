@@ -248,6 +248,30 @@ select:focus {
     border-color: #2c5f7e;
 }
 
+/* iOS Safari date picker fixes */
+input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 44px;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
 textarea {
     resize: vertical;
     min-height: 80px;
@@ -538,11 +562,22 @@ button[type="button"]:hover,
         font-size: 0.82em;
     }
     
-    /* Fix date input sizing on mobile */
+    /* Fix date input sizing on mobile - especially iOS */
     input[type="date"] {
-        padding: 10px;
-        font-size: 0.95em;
+        padding: 10px 8px;
+        font-size: 0.9em;
         max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+    }
+    
+    .form-row .form-group {
+        min-width: 0;
+    }
+    
+    .form-row .form-group input[type="date"] {
+        font-size: 0.85em;
+        padding: 8px 6px;
     }
     
     #pepDetailsSection h4 {
@@ -598,6 +633,17 @@ button[type="button"]:hover,
     .pep-details-table input[type="text"] {
         padding: 5px;
         font-size: 0.8em;
+    }
+    
+    /* Extra small device date input fixes - especially iOS */
+    input[type="date"] {
+        padding: 8px 5px;
+        font-size: 0.85em;
+    }
+    
+    .form-row .form-group input[type="date"] {
+        font-size: 0.8em;
+        padding: 7px 4px;
     }
 }
 
