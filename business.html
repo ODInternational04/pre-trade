@@ -23,7 +23,15 @@
         </div>
         <div class="page-indicator" id="pageIndicator">Page 1 of 3</div>
 
-        <form id="businessForm">
+        <form id="businessForm" novalidate>
+            <!-- Global messages (visible on all pages) -->
+            <div id="globalSuccessMessage" class="alert alert-success" style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                ✓ Application submitted successfully! Redirecting...
+            </div>
+            <div id="globalErrorMessage" class="alert alert-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                ✗ Error submitting application. Please try again.
+            </div>
+            
             <!-- PAGE 1 -->
             <div class="form-page" id="page1">
                 <div class="form-section">
@@ -675,13 +683,6 @@
                     </ul>
                 </div>
 
-                <div id="successMessage" class="alert alert-success" style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    ✓ Application submitted successfully! Redirecting...
-                </div>
-                <div id="errorMessage" class="alert alert-error" style="display: none; background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    ✗ Error submitting application. Please try again.
-                </div>
-
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary" onclick="previousPage()">Previous Page</button>
                     <button type="submit" class="btn" id="submitBtn">Submit Application</button>
@@ -835,12 +836,51 @@
             
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.innerHTML;
-            const successMsg = document.getElementById('successMessage');
-            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('globalSuccessMessage');
+            const errorMsg = document.getElementById('globalErrorMessage');
             
             // Hide previous messages
             successMsg.style.display = 'none';
             errorMsg.style.display = 'none';
+            
+            // Validate required files are uploaded
+            const requiredFiles = [
+                { id: 'repIdDocument', label: 'Representative ID/Passport', page: 1 },
+                { id: 'repProofResidence', label: 'Representative Proof of Residence', page: 1 },
+                { id: 'certIncorporation', label: 'Entity Certificate of Incorporation', page: 2 },
+                { id: 'moiArticles', label: 'Entity MOI/Articles of Association', page: 2 },
+                { id: 'shareholderList', label: 'List of Shareholders and/or Beneficial Owners', page: 2 },
+                { id: 'businessAddressProof', label: 'Proof of Registered Business Address', page: 2 },
+                { id: 'bankAccountProof', label: 'Proof of Business Bank Account', page: 2 }
+            ];
+            
+            const missingFiles = [];
+            requiredFiles.forEach(fileInfo => {
+                const fileInput = document.getElementById(fileInfo.id);
+                if (!fileInput.files || fileInput.files.length === 0) {
+                    missingFiles.push(fileInfo.label);
+                }
+            });
+            
+            if (missingFiles.length > 0) {
+                // Navigate back to page 1 where the error message will be visible
+                if (currentPage !== 1) {
+                    document.getElementById('page' + currentPage).style.display = 'none';
+                    currentPage = 1;
+                    document.getElementById('page1').style.display = 'block';
+                    updateProgress();
+                }
+                
+                // Show error message at top of form
+                errorMsg.style.display = 'block';
+                errorMsg.innerHTML = `<strong>⚠ Incomplete Application</strong><br><br>Please upload the following required documents:<br>• ${missingFiles.join('<br>• ')}`;
+                
+                // Scroll to error message
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                submitBtn.disabled = false;
+                return;
+            }
             
             // Check for duplicate
             submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⏳</span> Checking for duplicates...';
