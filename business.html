@@ -980,11 +980,22 @@
                 
             } catch (error) {
                 console.error('Submission error:', error);
-                errorMsg.textContent = '✗ Error: ' + error.message;
+                
+                // Navigate back to page 1 where the error message will be visible
+                if (currentPage !== 1) {
+                    document.getElementById('page' + currentPage).style.display = 'none';
+                    currentPage = 1;
+                    document.getElementById('page1').style.display = 'block';
+                    updateProgress();
+                }
+                
+                errorMsg.innerHTML = '✗ <strong>Error:</strong> ' + error.message;
                 errorMsg.style.display = 'block';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-                window.scrollTo(0, document.body.scrollHeight);
+                
+                // Scroll to error message
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
 
