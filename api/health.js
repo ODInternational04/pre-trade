@@ -1,5 +1,3 @@
-const config = require('../config');
-
 module.exports = async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,14 +12,18 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
     
-    res.json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        environment: 'Vercel Serverless',
-        config: {
-            sharepoint: config.sharepoint.siteUrl,
-            documentLibrary: config.sharepoint.documentLibrary,
-            emailFrom: config.email.from
-        }
-    });
+    try {
+        // Don't load config here to avoid initialization issues
+        res.json({ 
+            status: 'OK', 
+            timestamp: new Date().toISOString(),
+            environment: 'Vercel Serverless',
+            message: 'API is running'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error: error.message
+        });
+    }
 };
