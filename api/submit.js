@@ -4,16 +4,9 @@ const path = require('path');
 const { searchExistingClient, uploadToSharePoint } = require('../lib/sharepoint');
 const { sendApprovalEmail } = require('../lib/email');
 const { createClientInfoPDF, createOrUpdateTrackingPDF } = require('../lib/pdf');
-const config = require('../config');
+const appConfig = require('../config');
 
-// Disable body parsing, we'll handle it with formidable
-export const config = {
-    api: {
-        bodyParser: false
-    }
-};
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -124,7 +117,7 @@ export default async function handler(req, res) {
         const successfulUpload = uploadedFiles.find(f => f.url);
         const sharePointFolderLink = successfulUpload
             ? successfulUpload.url.split('/').slice(0, -1).join('/')
-            : `${config.sharepoint.siteUrl}/sites/${config.sharepoint.siteName}/${config.sharepoint.documentLibrary}/${clientFolder}`;
+            : `${appConfig.sharepoint.siteUrl}/sites/${appConfig.sharepoint.siteName}/${appConfig.sharepoint.documentLibrary}/${clientFolder}`;
         
         console.log('SharePoint folder:', sharePointFolderLink);
         
@@ -162,4 +155,11 @@ export default async function handler(req, res) {
             message: 'Error processing submission: ' + error.message
         });
     }
-}
+};
+
+// Disable body parsing for formidable
+module.exports.config = {
+    api: {
+        bodyParser: false
+    }
+};
