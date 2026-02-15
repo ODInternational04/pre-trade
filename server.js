@@ -7,7 +7,8 @@ const { Client } = require('@microsoft/microsoft-graph-client');
 const PDFDocument = require('pdfkit');
 const config = require('./config');
 
-// Validate critical environment variables on startup
+// Environment variable validation - WARN but don't crash
+console.log('🔍 Checking environment variables...');
 const requiredEnvVars = [
     'SHAREPOINT_TENANT_ID',
     'SHAREPOINT_CLIENT_ID', 
@@ -19,9 +20,10 @@ const requiredEnvVars = [
 
 const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
 if (missingVars.length > 0) {
-    console.error('❌ Missing required environment variables:', missingVars.join(', '));
-    console.error('Please configure these in Railway dashboard under Variables tab');
-    process.exit(1);
+    console.warn('⚠️  Warning: Missing environment variables:', missingVars.join(', '));
+    console.warn('⚠️  API calls will fail until these are configured in Railway');
+} else {
+    console.log('✅ All environment variables present');
 }
 
 const app = express();
@@ -45,19 +47,48 @@ app.use((req, res, next) => {
     next();
 });
 
-// Azure AD MSAL Configuration
-const msalConfig = {
-    auth: {
-        clientId: config.email.clientId,
-        authority: `https://login.microsoftonline.com/${config.email.tenantId}`,
-        clientSecret: config.email.clientSecret
-    }
-};
+// Health check endpoint - Must come EARLY for Railway to detect
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        env_check: missingVars.length === 0 ? 'all_present' : 'missing_vars',
+        node_version: process.version
+    });
+});
 
-const cca = new ConfidentialClientApplication(msalConfig);
+// Root endpoint for testing
+app.get('/', (req, res) => {
+    res.send('IBV Gold Pre-Trade API Server - Backend Running ✓');
+});
+
+// Azure AD MSAL Configuration
+let cca;
+let msalInitialized = false;
+
+try {
+    const msalConfig = {
+        auth: {
+            clientId: config.email.clientId,
+            authority: `https://login.microsoftonline.com/${config.email.tenantId}`,
+            clientSecret: config.email.clientSecret
+        }
+    };
+    
+    cca = new ConfidentialClientApplication(msalConfig);
+    msalInitialized = true;
+    console.log('✅ MSAL initialized successfully');
+} catch (error) {
+    console.error('❌ Failed to initialize MSAL:', error.message);
+    console.error('API endpoints will not work until environment variables are configured');
+}
 
 // Get Access Token
 async function getAccessToken() {
+    if (!msalInitialized || !cca) {
+        throw new Error('MSAL not initialized - check environment variables');
+    }
+    
     const tokenRequest = {
         scopes: ['https://graph.microsoft.com/.default']
     };
@@ -757,19 +788,6 @@ async function createApprovalPDF(clientFolder) {
 }
 
 // Routes
-
-// Health check
-app.get('/health', (req, res) => {
-    res.json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        config: {
-            sharepoint: config.sharepoint.siteUrl,
-            documentLibrary: config.sharepoint.documentLibrary,
-            emailFrom: config.email.from
-        }
-    });
-});
 
 // Test endpoint to list SharePoint drives
 app.get('/test/drives', async (req, res) => {
