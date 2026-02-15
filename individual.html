@@ -596,11 +596,20 @@
             
             try {
                 // Check for duplicates
+                console.log('Checking duplicate at:', `${API_BASE_URL}/api/check-duplicate`);
+                
                 const duplicateCheck = await fetch(`${API_BASE_URL}/api/check-duplicate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ clientName })
+                }).catch(err => {
+                    console.error('Fetch error details:', err);
+                    throw new Error(`Cannot connect to server. Please check:\n1. Railway backend is running\n2. URL: ${API_BASE_URL}\n\nError: ${err.message}`);
                 });
+                
+                if (!duplicateCheck.ok) {
+                    throw new Error(`Server returned error: ${duplicateCheck.status} ${duplicateCheck.statusText}`);
+                }
                 
                 const duplicateResult = await duplicateCheck.json();
                 
@@ -664,10 +673,20 @@
                 });
                 
                 // Submit to server
+                console.log('Submitting to:', `${API_BASE_URL}/api/submit`);
+                
                 const response = await fetch(`${API_BASE_URL}/api/submit`, {
                     method: 'POST',
                     body: formData
+                }).catch(err => {
+                    console.error('Fetch error details:', err);
+                    throw new Error(`Cannot connect to server at ${API_BASE_URL}\n\nError: ${err.message}`);
                 });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server error (${response.status}): ${errorText}`);
+                }
                 
                 const result = await response.json();
                 

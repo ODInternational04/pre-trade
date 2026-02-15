@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Railway Backend Connection Test</h1>
+    <p>Backend URL: <strong id="backend-url"></strong></p>
+    
+    <button onclick="runTests()">Run Connection Tests</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_BASE_URL = 'https://pre-trade-production.up.railway.app';
+        document.getElementById('backend-url').textContent = API_BASE_URL;
+
+        async function runTests() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="pending test-result">Running tests...</div>';
+            
+            const results = [];
+            
+            // Test 1: Root endpoint
+            results.push(await testEndpoint('Root Endpoint', `${API_BASE_URL}/`));
+            
+            // Test 2: Health check
+            results.push(await testEndpoint('Health Check', `${API_BASE_URL}/health`));
+            
+            // Test 3: Check duplicate API
+            results.push(await testAPI('Check Duplicate API', `${API_BASE_URL}/api/check-duplicate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ clientName: 'Test Client' })
+            }));
+            
+            // Display results
+            displayResults(results);
+        }
+
+        async function testEndpoint(name, url) {
+            try {
+                console.log(`Testing ${name}:`, url);
+                const response = await fetch(url);
+                const data = await response.text();
+                
+                return {
+                    name,
+                    success: response.ok,
+                    status: response.status,
+                    data: data.substring(0, 200)
+                };
+            } catch (error) {
+                return {
+                    name,
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        async function testAPI(name, url, options) {
+            try {
+                console.log(`Testing ${name}:`, url);
+                const response = await fetch(url, options);
+                const data = await response.json();
+                
+                return {
+                    name,
+                    success: response.ok,
+                    status: response.status,
+                    data: JSON.stringify(data, null, 2)
+                };
+            } catch (error) {
+                return {
+                    name,
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            
+            results.forEach(result => {
+                const div = document.createElement('div');
+                div.className = `test-result ${result.success ? 'success' : 'error'}`;
+                
+                let html = `<strong>${result.success ? '✓' : '✗'} ${result.name}</strong><br>`;
+                
+                if (result.success) {
+                    html += `Status: ${result.status}<br>`;
+                    html += `<pre>${result.data}</pre>`;
+                } else {
+                    html += `<span style="color: #d32f2f;">Error: ${result.error}</span><br>`;
+                    html += '<br><strong>Possible causes:</strong><ul>';
+                    html += '<li>Railway backend is not running</li>';
+                    html += '<li>Railway URL is incorrect</li>';
+                    html += '<li>CORS configuration issue</li>';
+                    html += '<li>Network/firewall blocking requests</li>';
+                    html += '</ul>';
+                }
+                
+                div.innerHTML = html;
+                resultsDiv.appendChild(div);
+            });
+            
+            // Overall summary
+            const allPassed = results.every(r => r.success);
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = `test-result ${allPassed ? 'success' : 'error'}`;
+            summaryDiv.innerHTML = `<strong>${allPassed ? '✓ All tests passed!' : '✗ Some tests failed'}</strong>`;
+            resultsDiv.appendChild(summaryDiv);
+        }
+
+        // Auto-run on load
+        window.onload = () => {
+            setTimeout(runTests, 500);
+        };
+    </script>
+</body>
+</html>
