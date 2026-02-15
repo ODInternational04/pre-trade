@@ -7,6 +7,23 @@ const { Client } = require('@microsoft/microsoft-graph-client');
 const PDFDocument = require('pdfkit');
 const config = require('./config');
 
+// Validate critical environment variables on startup
+const requiredEnvVars = [
+    'SHAREPOINT_TENANT_ID',
+    'SHAREPOINT_CLIENT_ID', 
+    'SHAREPOINT_CLIENT_SECRET',
+    'EMAIL_TENANT_ID',
+    'EMAIL_CLIENT_ID',
+    'EMAIL_CLIENT_SECRET'
+];
+
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+if (missingVars.length > 0) {
+    console.error('❌ Missing required environment variables:', missingVars.join(', '));
+    console.error('Please configure these in Railway dashboard under Variables tab');
+    process.exit(1);
+}
+
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
@@ -1134,19 +1151,48 @@ app.get('/approve', async (req, res) => {
     }
 });
 
-// Start server
-app.listen(config.server.port, () => {
+// Create uploads directory if it doesn't exist (Railway filesystem)
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Start server - Railway requires binding to 0.0.0.0
+const PORT = config.server.port;
+const HOST = '0.0.0.0'; // Required for Railway
+
+const server = app.listen(PORT, HOST, () => {
     console.log('='.repeat(60));
     console.log('🚀 IBV Gold Pre-Trade Application System');
     console.log('='.repeat(60));
-    console.log(`✓ Server running on ${config.server.baseUrl}`);
+    console.log(`✓ Server running on ${HOST}:${PORT}`);
+    console.log(`✓ Base URL: ${config.server.baseUrl}`);
     console.log(`✓ Azure AD authentication configured`);
     console.log(`✓ SharePoint: ${config.sharepoint.siteUrl}`);
     console.log(`✓ Document Library: ${config.sharepoint.documentLibrary}`);
     console.log(`✓ Email from: ${config.email.from}`);
     console.log(`✓ Legal team: ${config.email.legalTeam}`);
     console.log('='.repeat(60));
-    console.log(`📝 Access forms at: ${config.server.baseUrl}/index.html`);
+    console.log(`📝 Frontend URL: ${config.server.frontendUrl}`);
     console.log(`💚 Health check: ${config.server.baseUrl}/health`);
     console.log('='.repeat(60));
+});
+
+// Error handling for server startup
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${PORT} is already in use`);
+    } else {
+        console.error('❌ Server error:', error);
+    }
+    process.exit(1);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received, closing server gracefully...');
+    server.close(() => {
+        console.log('Server closed');
+        process.exit(0);
+    });
 });
