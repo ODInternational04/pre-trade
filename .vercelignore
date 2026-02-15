@@ -1,5 +1,13 @@
-node_modules
+# Exclude backend and development files
+server.js
+config.js
+uploads/
+node_modules/
 .env
 .env.local
 *.log
 .DS_Store
+package.json
+package-lock.json
+DEPLOYMENT.md
+README.md

@@ -25,6 +25,7 @@ module.exports = {
     // Server Configuration
     server: {
         port: process.env.PORT || 3000,
-        baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+        baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+        frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000' // Vercel URL for CORS
     }
 };
