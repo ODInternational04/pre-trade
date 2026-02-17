@@ -102,9 +102,9 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>PROFESSION DETAILS</h3>
-                    <div class="form-group" data-threshold-hide="below">
+                    <div class="form-group">
                         <label>EMPLOYMENT STATUS:</label>
                         <div class="radio-group">
                             <div class="radio-option">
@@ -131,9 +131,9 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>COMPANY DETAILS</h3>
-                    <div class="form-row" data-threshold-hide="below">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="companyName">COMPANY NAME:</label>
                             <input type="text" id="companyName" name="companyName">
@@ -151,13 +151,13 @@
                         <label for="sourceOfFunds">SOURCE OF FUNDS:</label>
                         <input type="text" id="sourceOfFunds" name="sourceOfFunds" placeholder="(Organised/Self - Activity/VIA Dependent Funds)">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="sourceOfWealth">SOURCE OF WEALTH:</label>
                         <input type="text" id="sourceOfWealth" name="sourceOfWealth" placeholder="(Activities/Natural Gas/Metals/Net Worth of Business/Capital)">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label>PURPOSE OF TRANSACTION:</label>
-                        <div class="radio-group" data-threshold-hide="below">
+                        <div class="radio-group">
                             <div class="radio-option">
                                 <input type="radio" id="investment" name="transactionPurpose" value="investment">
                                 <label for="investment">INVESTMENT/RELOCATION OF ASSETS</label>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>BANKING DETAILS</h3>
                     <div class="form-group">
                         <label for="accountHolder">ACCOUNT HOLDER: *</label>
@@ -210,13 +210,13 @@
                     <h3>DOCUMENT UPLOADS</h3>
                     <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Please upload all required documents (PDF, JPG, PNG - Max 5MB each)</p>
                     
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="idDocument">Copy of ID / Passport: *</label>
                         <input type="file" id="idDocument" name="idDocument" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Upload a clear copy of your identification document</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="proofResidence">Proof of Residence (within 3 months): *</label>
                         <input type="file" id="proofResidence" name="proofResidence" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Utility bill, bank statement, or rental agreement</small>
@@ -407,11 +407,11 @@
                     <h4>DOCUMENTS REQUIRED</h4>
                     <p style="margin-bottom: 15px; font-size: 0.9em;">(PLEASE ENSURE ALL DOCUMENTS ARE UPLOADED)</p>
                     <ul class="document-checklist">
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-idDocument">○</span>
                             <span>Copy of ID / Passport</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-proofResidence">○</span>
                             <span>Proof of Residence (within 3 months)</span>
                         </li>
