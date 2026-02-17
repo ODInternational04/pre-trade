@@ -22,19 +22,43 @@
             <p>Please choose whether you are applying as an individual or on behalf of a business entity</p>
             
             <div class="selection-buttons">
-                <button type="button" class="selection-btn individual-btn" onclick="window.location.href='individual.html'">
+                <button type="button" class="selection-btn individual-btn" onclick="showPurchaseAmountModal('individual')">
                     <div class="btn-icon">👤</div>
                     <div class="btn-text">Individual</div>
                     <div class="btn-description">For personal applications</div>
                 </button>
                 
-                <button type="button" class="selection-btn individual-btn" onclick="window.location.href='business.html'">
+                <button type="button" class="selection-btn individual-btn" onclick="showPurchaseAmountModal('business')">
                     <div class="btn-icon">🏢</div>
                     <div class="btn-text">Business</div>
                     <div class="btn-description">For companies and organizations</div>
                 </button>
             </div>
         </div>
+
+        <!-- Purchase Amount Modal -->
+        <div id="purchaseAmountModal" class="modal" style="display: none;">
+            <div class="modal-content" style="background: white; border-radius: 8px; padding: 40px; max-width: 500px; margin: 50px auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h3 style="margin-top: 0; color: #333;">Purchase Amount</h3>
+                <p style="color: #666; margin-bottom: 30px;">Please indicate if your transaction amount is below or above R500,000:</p>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <button type="button" class="btn" id="belowBtn" style="flex: 1; padding: 15px; font-size: 1em;" onclick="selectPurchaseAmount('below')">
+                        Below R500,000
+                    </button>
+                    <button type="button" class="btn" id="aboveBtn" style="flex: 1; padding: 15px; font-size: 1em;" onclick="selectPurchaseAmount('above')">
+                        Above R500,000
+                    </button>
+                </div>
+                
+                <button type="button" class="btn btn-secondary" style="width: 100%; padding: 10px;" onclick="closePurchaseAmountModal()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999;" onclick="closePurchaseAmountModal()"></div>
 
         <div class="important-points">
             <h3>IMPORTANT POINTS</h3>
@@ -48,5 +72,40 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        let selectedApplicantType = '';
+
+        function showPurchaseAmountModal(applicantType) {
+            selectedApplicantType = applicantType;
+            document.getElementById('purchaseAmountModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+        }
+
+        function closePurchaseAmountModal() {
+            document.getElementById('purchaseAmountModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+            selectedApplicantType = '';
+        }
+
+        function selectPurchaseAmount(amount) {
+            const threshold = amount === 'below' ? 'below' : 'above';
+            if (selectedApplicantType === 'individual') {
+                window.location.href = `individual.html?threshold=${threshold}`;
+            } else if (selectedApplicantType === 'business') {
+                window.location.href = `business.html?threshold=${threshold}`;
+            }
+            closePurchaseAmountModal();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('purchaseAmountModal');
+            const overlay = document.getElementById('modalOverlay');
+            if (event.target === overlay) {
+                closePurchaseAmountModal();
+            }
+        });
+    </script>
 </body>
 </html>

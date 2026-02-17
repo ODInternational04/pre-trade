@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script>
+        // Get threshold from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const threshold = urlParams.get('threshold') || 'above'; // default to 'above' (normal form)
+        const isBelow500k = threshold === 'below';
+        
+        // Store in window for use in form script
+        window.purchaseThreshold = threshold;
+        window.isBelow500k = isBelow500k;
+    </script>
     <div class="container">
         <div class="header">
             <div class="logo">
@@ -52,7 +62,7 @@
 
                 <div class="form-section">
                     <h3>RESIDENCY OF APPLICANT</h3>
-                    <div class="radio-group">
+                    <div class="radio-group" data-threshold-hide="below">
                         <div class="radio-option">
                             <input type="radio" id="resident" name="residency" value="resident" required>
                             <label for="resident">RESIDENT</label>
@@ -94,7 +104,7 @@
 
                 <div class="form-section">
                     <h3>PROFESSION DETAILS</h3>
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label>EMPLOYMENT STATUS:</label>
                         <div class="radio-group">
                             <div class="radio-option">
@@ -123,7 +133,7 @@
 
                 <div class="form-section">
                     <h3>COMPANY DETAILS</h3>
-                    <div class="form-row">
+                    <div class="form-row" data-threshold-hide="below">
                         <div class="form-group">
                             <label for="companyName">COMPANY NAME:</label>
                             <input type="text" id="companyName" name="companyName">
@@ -147,7 +157,7 @@
                     </div>
                     <div class="form-group">
                         <label>PURPOSE OF TRANSACTION:</label>
-                        <div class="radio-group">
+                        <div class="radio-group" data-threshold-hide="below">
                             <div class="radio-option">
                                 <input type="radio" id="investment" name="transactionPurpose" value="investment">
                                 <label for="investment">INVESTMENT/RELOCATION OF ASSETS</label>
@@ -227,7 +237,7 @@
 
             <!-- PAGE 2 -->
             <div class="form-page" id="page2" style="display: none;">
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>FIRST AND ANTICIPATED FUTURE TRANSACTION SIZE</h3>
                     <div class="radio-group">
                         <div class="radio-option">
@@ -249,7 +259,7 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>ANTICIPATED ANNUAL TRANSACTIONS</h3>
                     <div class="radio-group">
                         <div class="radio-option">
@@ -460,6 +470,27 @@
         let currentPage = 1;
         const totalPages = 2;
         let pepRowCounter = 2;
+
+        // Hide sections based on threshold
+        function applyThresholdFiltering() {
+            if (window.isBelow500k) {
+                const elementsToHide = document.querySelectorAll('[data-threshold-hide="below"]');
+                elementsToHide.forEach(element => {
+                    element.style.display = 'none';
+                });
+
+                // Also hide the entire residency section parent div if it's empty
+                const residencySection = document.querySelector('[data-threshold-hide="below"]').closest('.form-section');
+                if (residencySection) {
+                    residencySection.style.display = 'none';
+                }
+            }
+        }
+
+        // Apply threshold filtering when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            applyThresholdFiltering();
+        });
 
         // PEP Declaration functions
         function togglePepDetails() {
