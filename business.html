@@ -60,9 +60,9 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>RESIDENCY OF ENTITY</h3>
-                    <div class="radio-group" data-threshold-hide="below">
+                    <div class="radio-group">
                         <div class="radio-option">
                             <input type="radio" id="resident" name="residency" value="resident" required>
                             <label for="resident">RESIDENT</label>
@@ -218,7 +218,7 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>BANKING DETAILS</h3>
                     <div class="form-group">
                         <label for="accountHolder">ACCOUNT HOLDER: *</label>
@@ -275,31 +275,31 @@
                     <h3>DOCUMENT UPLOADS - COMPANY/ENTITY DOCUMENTS</h3>
                     <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">All documents must be certified copies (PDF, JPG, PNG - Max 5MB each)</p>
                     
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="certIncorporation">Entity Certificate of Incorporation: *</label>
                         <input type="file" id="certIncorporation" name="certIncorporation" accept=".pdf,.jpg,.jpeg,.png" required>
                         <small style="display: block; margin-top: 5px; color: #666;">Certified copy of registration certificate</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="moiArticles">Entity MOI / Articles of Association: *</label>
                         <input type="file" id="moiArticles" name="moiArticles" accept=".pdf,.jpg,.jpeg,.png" required>
                         <small style="display: block; margin-top: 5px; color: #666;">Memorandum of Incorporation or Articles</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="shareholderList">List of Shareholders and/or Beneficial Owners: *</label>
                         <input type="file" id="shareholderList" name="shareholderList" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
                         <small style="display: block; margin-top: 5px; color: #666;">Complete list with ownership percentages</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="shareCertificates">Share Certificates (if applicable):</label>
                         <input type="file" id="shareCertificates" name="shareCertificates" accept=".pdf,.jpg,.jpeg,.png" multiple>
                         <small style="display: block; margin-top: 5px; color: #666;">For shareholders holding 25% or more</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="businessAddressProof">Proof of Registered Business Address: *</label>
                         <input type="file" id="businessAddressProof" name="businessAddressProof" accept=".pdf,.jpg,.jpeg,.png" required>
                         <small style="display: block; margin-top: 5px; color: #666;">Utility bill, rental agreement, or lease</small>
@@ -311,26 +311,26 @@
                         <small style="display: block; margin-top: 5px; color: #666;">Bank statement or confirmation letter</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="sourceProof">Proof of Source of Funds and Wealth:</label>
                         <input type="file" id="sourceProof" name="sourceProof" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple>
                         <small style="display: block; margin-top: 5px; color: #666;">Financial statements, contracts, or other documentation</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="boardResolution">Board/Trust Resolution - Authorisation Letter:</label>
                         <input type="file" id="boardResolution" name="boardResolution" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">Authorizing persons to trade with IBV Gold</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="thirdPartyAuth">Third Party Collections - Authorisation Letter:</label>
                         <input type="file" id="thirdPartyAuth" name="thirdPartyAuth" accept=".pdf,.jpg,.jpeg,.png">
                         <small style="display: block; margin-top: 5px; color: #666;">If collections will be done by third parties</small>
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>DIRECTOR / TRUSTEE/ MEMBERS - PLEASE ATTACH ID AND PROOF OF RESIDENCE FOR EACH DIRECTOR/TRUSTEE/MEMBER</h3>
                     <div id="directorsContainer">
                         <div class="director-entry" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
@@ -371,7 +371,7 @@
                     <button type="button" class="btn btn-secondary" onclick="addDirector()" style="margin-bottom: 20px;">Add Another Director/Trustee/Member</button>
                 </div>
 
-                <div class="form-section">
+                <div class="form-section" data-threshold-hide="below">
                     <h3>BOARD / TRUST RESOLUTION - AUTHORISED PERSONS WHO MAY TRADE WITH IBV GOLD (ORDERS AND COLLECTIONS)</h3>
                     <div id="authorisedContainer">
                         <div class="authorised-entry" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
@@ -650,35 +650,35 @@
                             <span class="doc-status" id="status-repProofResidence">○</span>
                             <span>Representative Proof of Residence</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-directors">○</span>
                             <span>ID/PASSPORT OF EACH DIRECTOR</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-directorsRes">○</span>
                             <span>PROOF OF RESIDENCE OF EACH DIRECTOR</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-authorised">○</span>
                             <span>ID / PASSPORT OF AUTHORISED PERSON (AS PER BOARD RESOLUTION)</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-businessAddressProof">○</span>
                             <span>PROOF OF REGISTERED BUSINESS ADDRESS (EG. UTILITY BILL, RENTAL AGREEMENT)</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-sourceProof">○</span>
                             <span>PROOF OF SOURCE OF FUNDS AND WEALTH</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-certIncorporation">○</span>
                             <span>ENTITY CERTIFICATE OF INCORPORATION</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-moiArticles">○</span>
                             <span>ENTITY MOI / ARTICLES OF ASSOCIATION</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-shareholderList">○</span>
                             <span>LIST OF SHAREHOLDERS AND/OR BENEFICIAL OWNERS</span>
                         </li>
@@ -686,7 +686,7 @@
                             <span class="doc-status" id="status-bankAccountProof">○</span>
                             <span>PROOF OF BUSINESS BANK ACCOUNT</span>
                         </li>
-                        <li>
+                        <li data-threshold-hide="below">
                             <span class="doc-status" id="status-thirdPartyAuth">○</span>
                             <span>THIRD PARTY COLLECTIONS - AUTHORISATION LETTER</span>
                         </li>
