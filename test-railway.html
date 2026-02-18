@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Railway Connection Test</title>
+</head>
+<body>
+    <h1>Railway Connection Test</h1>
+    <button onclick="testConnection()">Test Connection</button>
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+
+    <script>
+        const API_BASE_URL = 'https://pre-trade-production.up.railway.app';
+
+        async function testConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing connection...';
+
+            try {
+                console.log('Testing connection to:', API_BASE_URL);
+                
+                // Test health endpoint
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <strong style="color: green;">✓ Connection successful!</strong><br>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <strong style="color: red;">✗ Connection failed!</strong><br>
+                    Error: ${error.message}
+                `;
+                console.error('Connection error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

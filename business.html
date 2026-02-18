@@ -101,7 +101,7 @@
                             <label for="residentialAddress">RESIDENTIAL ADDRESS: *</label>
                             <textarea id="residentialAddress" name="residentialAddress" required></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-threshold-hide="below">
                             <label for="taxNumber">TAX NUMBER:</label>
                             <input type="text" id="taxNumber" name="taxNumber">
                         </div>
@@ -173,7 +173,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-row" data-threshold-hide="below">
                         <div class="form-group">
                             <label for="busMobile">BUS. MOBILE NUMBER: *</label>
                             <input type="tel" id="busMobile" name="busMobile" required>
@@ -191,13 +191,13 @@
                         <label for="sourceOfFunds">SOURCE OF FUNDS:</label>
                         <input type="text" id="sourceOfFunds" name="sourceOfFunds" placeholder="(Organised/Self - Activity/VIA Dependent Funds)">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label for="sourceOfWealth">SOURCE OF WEALTH:</label>
                         <input type="text" id="sourceOfWealth" name="sourceOfWealth" placeholder="(Activities/Natural Gas/Metals/Net Worth of Business/Capital)">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-threshold-hide="below">
                         <label>PURPOSE OF TRANSACTION:</label>
-                        <div class="radio-group" data-threshold-hide="below">
+                        <div class="radio-group">
                             <div class="radio-option">
                                 <input type="radio" id="investment" name="transactionPurpose" value="investment">
                                 <label for="investment">INVESTMENT/RELOCATION OF ASSETS</label>
