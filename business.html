@@ -956,7 +956,10 @@
                 console.log('Duplicate check response received:', duplicateCheck);
                 
                 if (!duplicateCheck.ok) {
-                    throw new Error(`Server returned error: ${duplicateCheck.status} ${duplicateCheck.statusText}`);
+                    const errorData = await duplicateCheck.json().catch(() => ({}));
+                    const errorMsg = errorData.error || errorData.message || duplicateCheck.statusText;
+                    console.error('Duplicate check failed:', errorData);
+                    throw new Error(`Server returned error: ${duplicateCheck.status} - ${errorMsg}`);
                 }
                 
                 const duplicateResult = await duplicateCheck.json();
