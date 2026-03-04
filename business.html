@@ -959,6 +959,8 @@
                     const errorData = await duplicateCheck.json().catch(() => ({}));
                     const errorMsg = errorData.error || errorData.message || duplicateCheck.statusText;
                     console.error('Duplicate check failed:', errorData);
+                    console.error('Full error details:', JSON.stringify(errorData, null, 2));
+                    alert('API Error: ' + JSON.stringify(errorData, null, 2));
                     throw new Error(`Server returned error: ${duplicateCheck.status} - ${errorMsg}`);
                 }
                 
