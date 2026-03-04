@@ -1,5 +1,7 @@
-const formidable = require('formidable');
+const Busboy = require('busboy');
 const fs = require('fs');
+const path = require('path');
+const os = require('os');
 const { searchExistingClient, uploadToSharePoint } = require('../lib/sharepoint');
 const { sendApprovalEmail } = require('../lib/email');
 const { createClientInfoPDF } = require('../lib/pdf');
@@ -37,48 +39,79 @@ module.exports = async function (context, req) {
     }
     
     try {
-        context.log('Starting form parse...');
+        context.log('Starting form parse with Busboy...');
         context.log('Content-Type:', req.headers['content-type']);
         
-        // Parse multipart form data
-        const form = new formidable.IncomingForm({
-            multiples: true,
-            maxFileSize: 50 * 1024 * 1024, // 50MB
-        });
+        // Parse multipart form data using busboy
+        const fields = {};
+        const files = [];
         
-        context.log('Form instance created');
-        
-        const [fields, files] = await new Promise((resolve, reject) => {
-            context.log('Starting form.parse...');
-            form.parse(req, (err, fields, files) => {
-                if (err) {
-                    context.log('Formidable parse error:', err);
-                    context.log('Error details:', JSON.stringify(err));
-                    reject(err);
+        await new Promise((resolve, reject) => {
+            const busboy = Busboy({ 
+                headers: req.headers,
+                limits: {
+                    fileSize: 50 * 1024 * 1024 // 50MB
                 }
-                else resolve([fields, files]);
             });
+            
+            busboy.on('field', (fieldname, value) => {
+                context.log(`Field [${fieldname}]: ${value.substring(0, 100)}`);
+                fields[fieldname] = value;
+            });
+            
+            busboy.on('file', (fieldname, fileStream, info) => {
+                const { filename, encoding, mimeType } = info;
+                context.log(`File [${fieldname}]: ${filename}, type: ${mimeType}`);
+                
+                // Save file to temp directory
+                const tmpDir = os.tmpdir();
+                const filepath = path.join(tmpDir, `${Date.now()}-${filename}`);
+                const writeStream = fs.createWriteStream(filepath);
+                
+                fileStream.pipe(writeStream);
+                
+                writeStream.on('close', () => {
+                    files.push({
+                        fieldname,
+                        originalFilename: filename,
+                        filepath,
+                        mimetype: mimeType,
+                        size: fs.statSync(filepath).size
+                    });
+                });
+                
+                writeStream.on('error', (err) => {
+                    context.log('File write error:', err);
+                    reject(err);
+                });
+            });
+            
+            busboy.on('finish', () => {
+                context.log(`Busboy finished. Fields: ${Object.keys(fields).length}, Files: ${files.length}`);
+                resolve();
+            });
+            
+            busboy.on('error', (err) => {
+                context.log('Busboy error:', err);
+                reject(err);
+            });
+            
+            // Write request body to busboy
+            if (req.body) {
+                busboy.write(req.body);
+                busboy.end();
+            } else if (req.rawBody) {
+                busboy.write(req.rawBody);
+                busboy.end();
+            } else {
+                reject(new Error('No request body available'));
+            }
         });
         
-        // Convert fields to simple object (formidable returns arrays)
-        const formData = {};
-        for (const key in fields) {
-            formData[key] = Array.isArray(fields[key]) ? fields[key][0] : fields[key];
-        }
-        
-        // Convert files to array
-        const fileArray = [];
-        for (const key in files) {
-            const file = files[key];
-            if (Array.isArray(file)) {
-                fileArray.push(...file);
-            } else {
-                fileArray.push(file);
-            }
-        }
+        const formData = fields;
         
         console.log('Received form submission...');
-        console.log('Number of files:', fileArray.length);
+        console.log('Number of files:', files.length);
         
         // Create client folder name
         const clientName = formData.fullName || formData.repFullName || formData.companyRegName || 'Unknown Client';
@@ -120,7 +153,7 @@ module.exports = async function (context, req) {
         
         // Upload all files to SharePoint
         console.log('Uploading files to SharePoint...');
-        const uploadPromises = fileArray.map(async (file) => {
+        const uploadPromises = files.map(async (file) => {
             try {
                 const originalName = file.originalFilename || file.newFilename;
                 const fileBuffer = fs.readFileSync(file.filepath);
