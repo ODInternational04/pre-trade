@@ -1,12 +1,14 @@
 const formidable = require('formidable');
 const fs = require('fs');
-const { searchExistingClient, uploadToSharePoint } = require('../lib/sharepoint');
-const { sendApprovalEmail } = require('../lib/email');
-const { createClientInfoPDF } = require('../lib/pdf');
-const config = require('../config');
+const { searchExistingClient, uploadToSharePoint } = require('../../lib/sharepoint');
+const { sendApprovalEmail } = require('../../lib/email');
+const { createClientInfoPDF } = require('../../lib/pdf');
+const config = require('../../config');
 
 module.exports = async function (context, req) {
     context.log('Submit endpoint called');
+    context.log('Request method:', req.method);
+    context.log('Request headers:', JSON.stringify(req.headers));
     
     try {
         // Parse multipart form data
@@ -17,7 +19,10 @@ module.exports = async function (context, req) {
         
         const [fields, files] = await new Promise((resolve, reject) => {
             form.parse(req, (err, fields, files) => {
-                if (err) reject(err);
+                if (err) {
+                    context.log('Formidable parse error:', err);
+                    reject(err);
+                }
                 else resolve([fields, files]);
             });
         });
@@ -146,12 +151,16 @@ module.exports = async function (context, req) {
         
     } catch (error) {
         console.error('Submission error:', error);
+        context.log('Full error:', error);
+        context.log('Error stack:', error.stack);
+        
         context.res = {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
             body: {
                 success: false,
-                error: error.message || 'Error processing submission'
+                error: error.message || 'Error processing submission',
+                details: error.stack
             }
         };
     }
