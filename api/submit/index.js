@@ -38,7 +38,7 @@ module.exports = async function (context, req) {
     
     try {
         // Parse multipart form data
-        const form = formidable({
+        const form = new formidable.IncomingForm({
             multiples: true,
             maxFileSize: 50 * 1024 * 1024, // 50MB
         });
