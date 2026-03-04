@@ -614,7 +614,7 @@
                         </div>
                         <div class="form-group">
                             <label for="attestationDate">DATE: *</label>
-                            <input type="date" id="attestationDate" name="attestationDate" required>
+                            <input type="date" id="attestationDate" name="attestationDate" required onchange="this.blur()">
                         </div>
                     </div>
                     <div class="form-group">
@@ -887,12 +887,18 @@
             const requiredFiles = [
                 { id: 'repIdDocument', label: 'Representative ID/Passport', page: 1 },
                 { id: 'repProofResidence', label: 'Representative Proof of Residence', page: 1 },
-                { id: 'certIncorporation', label: 'Entity Certificate of Incorporation', page: 2 },
-                { id: 'moiArticles', label: 'Entity MOI/Articles of Association', page: 2 },
-                { id: 'shareholderList', label: 'List of Shareholders and/or Beneficial Owners', page: 2 },
-                { id: 'businessAddressProof', label: 'Proof of Registered Business Address', page: 2 },
                 { id: 'bankAccountProof', label: 'Proof of Business Bank Account', page: 2 }
             ];
+            
+            // Only require these documents for transactions >= R500k
+            if (!window.isBelow500k) {
+                requiredFiles.push(
+                    { id: 'certIncorporation', label: 'Entity Certificate of Incorporation', page: 2 },
+                    { id: 'moiArticles', label: 'Entity MOI/Articles of Association', page: 2 },
+                    { id: 'shareholderList', label: 'List of Shareholders and/or Beneficial Owners', page: 2 },
+                    { id: 'businessAddressProof', label: 'Proof of Registered Business Address', page: 2 }
+                );
+            }
             
             const missingFiles = [];
             requiredFiles.forEach(fileInfo => {
