@@ -1,9 +1,28 @@
-const { searchExistingClient } = require('../../lib/sharepoint');
-
 module.exports = async function (context, req) {
-    context.log('Check duplicate endpoint called');
-    context.log('Request method:', req.method);
-    context.log('Request body:', JSON.stringify(req.body));
+    // Wrap everything in try-catch to handle any crashes
+    try {
+        context.log('=== Check duplicate endpoint called ===');
+        context.log('Request method:', req.method);
+        context.log('Request body:', JSON.stringify(req.body));
+        
+        // Import inside function to catch require errors
+        let searchExistingClient;
+        try {
+            const sharepoint = require('../../lib/sharepoint');
+            searchExistingClient = sharepoint.searchExistingClient;
+            context.log('SharePoint module loaded successfully');
+        } catch (requireError) {
+            context.log('ERROR loading sharepoint module:', requireError);
+            context.res = {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' },
+                body: {
+                    error: 'Failed to load SharePoint module: ' + requireError.message,
+                    stack: requireError.stack
+                }
+            };
+            return;
+        }
     
     // Check critical environment variables
     const requiredEnvVars = [
@@ -82,6 +101,22 @@ module.exports = async function (context, req) {
                 error: 'Error checking for duplicate client: ' + error.message,
                 stack: error.stack,
                 name: error.name
+            }
+        };
+    }
+    
+    } catch (outerError) {
+        // Top-level catch for any crash
+        console.error('CRITICAL ERROR in check-duplicate:', outerError);
+        context.log('CRITICAL ERROR:', outerError);
+        
+        context.res = {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+            body: {
+                error: 'Critical error: ' + outerError.message,
+                stack: outerError.stack,
+                name: outerError.name
             }
         };
     }
