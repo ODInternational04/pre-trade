@@ -1,6 +1,6 @@
 const { ConfidentialClientApplication } = require('@azure/msal-node');
 const { Client } = require('@microsoft/microsoft-graph-client');
-const config = require('../config');
+const config = require('../../config');
 
 let cca;
 let msalInitialized = false;

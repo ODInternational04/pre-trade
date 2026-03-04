@@ -8,7 +8,7 @@ module.exports = async function (context, req) {
         // Import inside function to catch require errors
         let searchExistingClient;
         try {
-            const sharepoint = require('../../lib/sharepoint');
+            const sharepoint = require('../lib/sharepoint');
             searchExistingClient = sharepoint.searchExistingClient;
             context.log('SharePoint module loaded successfully');
         } catch (requireError) {

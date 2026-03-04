@@ -1,5 +1,5 @@
 const { getGraphClient } = require('./sharepoint');
-const config = require('../config');
+const config = require('../../config');
 
 // Send approval email via Microsoft Graph
 async function sendApprovalEmail(clientName, applicationType, sharePointLink, clientFolder) {

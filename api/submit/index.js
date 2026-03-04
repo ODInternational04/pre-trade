@@ -1,8 +1,8 @@
 const formidable = require('formidable');
 const fs = require('fs');
-const { searchExistingClient, uploadToSharePoint } = require('../../lib/sharepoint');
-const { sendApprovalEmail } = require('../../lib/email');
-const { createClientInfoPDF } = require('../../lib/pdf');
+const { searchExistingClient, uploadToSharePoint } = require('../lib/sharepoint');
+const { sendApprovalEmail } = require('../lib/email');
+const { createClientInfoPDF } = require('../lib/pdf');
 const config = require('../../config');
 
 module.exports = async function (context, req) {
