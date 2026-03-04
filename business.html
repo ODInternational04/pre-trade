@@ -710,8 +710,8 @@
     </div>
 
     <script>
-        // API Configuration - Railway backend URL
-        const API_BASE_URL = 'https://pre-trade-production.up.railway.app';
+        // API Configuration - Use relative URLs for Azure Static Web Apps
+        const API_BASE_URL = window.location.origin;
         
         let currentPage = 1;
         const totalPages = 3;
