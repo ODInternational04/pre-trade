@@ -1,6 +1,13 @@
 // Configuration for IBV Gold Pre-Trade Application System
 // Uses environment variables to keep secrets secure
-require('dotenv').config();
+
+// Load .env file only if in local development (not in Azure)
+try {
+    require('dotenv').config();
+} catch (err) {
+    // dotenv not available in Azure Functions - that's OK, we use Portal environment variables
+    console.log('Running without dotenv (using Azure environment variables)');
+}
 
 module.exports = {
     // SharePoint Configuration
