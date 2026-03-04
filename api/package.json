@@ -1,0 +1,18 @@
+{
+  "name": "ibv-gold-api-functions",
+  "version": "1.0.0",
+  "description": "Azure Static Web Apps API Functions for IBV Gold Pre-Trade System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@azure/msal-node": "^2.6.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "formidable": "^3.5.1",
+    "pdfkit": "^0.13.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
