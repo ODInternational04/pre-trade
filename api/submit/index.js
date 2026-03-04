@@ -37,16 +37,23 @@ module.exports = async function (context, req) {
     }
     
     try {
+        context.log('Starting form parse...');
+        context.log('Content-Type:', req.headers['content-type']);
+        
         // Parse multipart form data
         const form = new formidable.IncomingForm({
             multiples: true,
             maxFileSize: 50 * 1024 * 1024, // 50MB
         });
         
+        context.log('Form instance created');
+        
         const [fields, files] = await new Promise((resolve, reject) => {
+            context.log('Starting form.parse...');
             form.parse(req, (err, fields, files) => {
                 if (err) {
                     context.log('Formidable parse error:', err);
+                    context.log('Error details:', JSON.stringify(err));
                     reject(err);
                 }
                 else resolve([fields, files]);
