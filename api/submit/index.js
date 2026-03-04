@@ -10,6 +10,32 @@ module.exports = async function (context, req) {
     context.log('Request method:', req.method);
     context.log('Request headers:', JSON.stringify(req.headers));
     
+    // Check critical environment variables
+    const requiredEnvVars = [
+        'EMAIL_TENANT_ID',
+        'EMAIL_CLIENT_ID', 
+        'EMAIL_CLIENT_SECRET',
+        'SHAREPOINT_SITE_URL',
+        'EMAIL_FROM',
+        'EMAIL_LEGAL_TEAM'
+    ];
+    
+    const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+    
+    if (missingVars.length > 0) {
+        context.log('Missing environment variables:', missingVars);
+        context.res = {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+            body: {
+                success: false,
+                error: `Server configuration incomplete. Missing environment variables: ${missingVars.join(', ')}. Please configure these in Azure Portal → Settings → Configuration.`,
+                missingVariables: missingVars
+            }
+        };
+        return;
+    }
+    
     try {
         // Parse multipart form data
         const form = formidable({

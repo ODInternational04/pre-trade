@@ -4,8 +4,29 @@ module.exports = async function (context, req) {
     context.log('Check duplicate endpoint called');
     context.log('Request method:', req.method);
     context.log('Request body:', JSON.stringify(req.body));
-    context.log('Environment check - TENANT_ID exists:', !!process.env.TENANT_ID);
-    context.log('Environment check - CLIENT_ID exists:', !!process.env.CLIENT_ID);
+    
+    // Check critical environment variables
+    const requiredEnvVars = [
+        'EMAIL_TENANT_ID',
+        'EMAIL_CLIENT_ID', 
+        'EMAIL_CLIENT_SECRET',
+        'SHAREPOINT_SITE_URL'
+    ];
+    
+    const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+    
+    if (missingVars.length > 0) {
+        context.log('Missing environment variables:', missingVars);
+        context.res = {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+            body: {
+                error: `Server configuration incomplete. Missing environment variables: ${missingVars.join(', ')}. Please configure these in Azure Portal → Settings → Configuration.`,
+                missingVariables: missingVars
+            }
+        };
+        return;
+    }
     
     try {
         const clientName = req.body?.clientName;
